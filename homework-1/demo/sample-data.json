@@ -1,0 +1,72 @@
+{
+  "transactions": [
+    {
+      "toAccount": "ACC-12345",
+      "amount": 1000.00,
+      "currency": "USD",
+      "type": "deposit"
+    },
+    {
+      "toAccount": "ACC-67890",
+      "amount": 500.00,
+      "currency": "USD",
+      "type": "deposit"
+    },
+    {
+      "toAccount": "ACC-11111",
+      "amount": 2000.00,
+      "currency": "EUR",
+      "type": "deposit"
+    },
+    {
+      "fromAccount": "ACC-12345",
+      "amount": 200.00,
+      "currency": "USD",
+      "type": "withdrawal"
+    },
+    {
+      "fromAccount": "ACC-67890",
+      "amount": 100.00,
+      "currency": "USD",
+      "type": "withdrawal"
+    },
+    {
+      "fromAccount": "ACC-12345",
+      "toAccount": "ACC-67890",
+      "amount": 150.00,
+      "currency": "USD",
+      "type": "transfer"
+    },
+    {
+      "fromAccount": "ACC-67890",
+      "toAccount": "ACC-12345",
+      "amount": 75.00,
+      "currency": "USD",
+      "type": "transfer"
+    },
+    {
+      "fromAccount": "ACC-11111",
+      "toAccount": "ACC-12345",
+      "amount": 300.00,
+      "currency": "GBP",
+      "type": "transfer"
+    }
+  ],
+  "accounts": {
+    "ACC-12345": {
+      "description": "Main USD Account",
+      "initialBalance": 1000.00,
+      "currency": "USD"
+    },
+    "ACC-67890": {
+      "description": "Secondary USD Account",
+      "initialBalance": 500.00,
+      "currency": "USD"
+    },
+    "ACC-11111": {
+      "description": "EUR Account",
+      "initialBalance": 2500.00,
+      "currency": "EUR"
+    }
+  }
+}
