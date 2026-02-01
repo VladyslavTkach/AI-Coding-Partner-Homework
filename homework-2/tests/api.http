@@ -1,0 +1,157 @@
+### Health Check
+GET http://localhost:3000/health
+
+### Create a new ticket
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST001",
+  "customer_email": "john@example.com",
+  "customer_name": "John Doe",
+  "subject": "Cannot login to my account",
+  "description": "I have been trying to login but keep getting an error message when I try to access my account",
+  "category": "account_access",
+  "priority": "high",
+  "tags": ["login", "urgent"],
+  "metadata": {
+    "source": "web_form",
+    "browser": "Chrome 120",
+    "device_type": "desktop"
+  }
+}
+
+### Create another ticket (billing)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST002",
+  "customer_email": "jane@example.com",
+  "customer_name": "Jane Smith",
+  "subject": "Question about my invoice",
+  "description": "I have a question about the charges on my last invoice, can someone explain them?",
+  "category": "billing_question",
+  "priority": "medium",
+  "tags": ["billing", "invoice"]
+}
+
+### Create ticket with validation error (short description)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST003",
+  "customer_email": "invalid-email",
+  "customer_name": "Bob",
+  "subject": "Test",
+  "description": "Short",
+  "category": "other",
+  "priority": "low"
+}
+
+### List all tickets
+GET http://localhost:3000/tickets
+
+### List tickets filtered by category
+GET http://localhost:3000/tickets?category=account_access
+
+### List tickets filtered by priority
+GET http://localhost:3000/tickets?priority=high
+
+### List tickets filtered by status
+GET http://localhost:3000/tickets?status=new
+
+### List tickets with multiple filters
+GET http://localhost:3000/tickets?category=billing_question&priority=medium
+
+### Get ticket by ID (replace with actual ID from create response)
+GET http://localhost:3000/tickets/{{ticket_id}}
+
+### Update ticket status
+PUT http://localhost:3000/tickets/{{ticket_id}}
+Content-Type: application/json
+
+{
+  "status": "in_progress",
+  "assigned_to": "agent-001"
+}
+
+### Update ticket priority
+PUT http://localhost:3000/tickets/{{ticket_id}}
+Content-Type: application/json
+
+{
+  "priority": "urgent"
+}
+
+### Delete ticket (replace with actual ID)
+DELETE http://localhost:3000/tickets/{{ticket_id}}
+
+### Import tickets from JSON file
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="tickets.json"
+Content-Type: application/json
+
+[
+  {
+    "customer_id": "IMPORT001",
+    "customer_email": "import1@example.com",
+    "customer_name": "Import User 1",
+    "subject": "Imported ticket from JSON",
+    "description": "This ticket was imported via the bulk import endpoint from JSON",
+    "category": "technical_issue",
+    "priority": "medium"
+  },
+  {
+    "customer_id": "IMPORT002",
+    "customer_email": "import2@example.com",
+    "customer_name": "Import User 2",
+    "subject": "Another imported ticket",
+    "description": "This is another ticket imported via bulk import endpoint",
+    "category": "feature_request",
+    "priority": "low"
+  }
+]
+--boundary--
+
+### Import tickets from CSV file
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="tickets.csv"
+Content-Type: text/csv
+
+customer_id,customer_email,customer_name,subject,description,category,priority
+CSV001,csv1@example.com,CSV User 1,CSV Import Test,This ticket was imported from a CSV file via bulk import,technical_issue,high
+CSV002,csv2@example.com,CSV User 2,Another CSV ticket,Another ticket imported from CSV file format,billing_question,medium
+--boundary--
+
+### Import tickets from XML file
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="tickets.xml"
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>XML001</customer_id>
+    <customer_email>xml1@example.com</customer_email>
+    <customer_name>XML User 1</customer_name>
+    <subject>XML Import Test</subject>
+    <description>This ticket was imported from an XML file via bulk import</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+  </ticket>
+</tickets>
+--boundary--
+
+### Get non-existent ticket (404 error)
+GET http://localhost:3000/tickets/non-existent-id
