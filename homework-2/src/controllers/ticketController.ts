@@ -7,6 +7,7 @@ import {
   updateTicket,
   deleteTicket
 } from '../services/ticketService';
+import { classificationService } from '../services/classificationService';
 import { TicketFilters, Category, Priority, Status } from '../types';
 import { BadRequestError } from '../middleware/errorHandler';
 
@@ -17,7 +18,21 @@ export async function create(
 ): Promise<void> {
   try {
     const ticket = createNewTicket(req.body);
-    res.status(201).json(ticket);
+
+    // Check for auto_classify query parameter
+    const autoClassify = req.query.auto_classify === 'true';
+
+    if (autoClassify) {
+      const classification = classificationService.classifyTicket(ticket, true);
+      // Get updated ticket after classification
+      const updatedTicket = getTicketById(ticket.id);
+      res.status(201).json({
+        ticket: updatedTicket,
+        classification
+      });
+    } else {
+      res.status(201).json(ticket);
+    }
   } catch (error) {
     next(error);
   }

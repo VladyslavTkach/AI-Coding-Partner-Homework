@@ -13,3 +13,8 @@ export {
   parseFile,
   importTickets
 } from './importService';
+
+export {
+  classificationService,
+  ClassificationService
+} from './classificationService';

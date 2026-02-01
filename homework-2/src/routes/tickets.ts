@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import * as ticketController from '../controllers/ticketController';
+import { classificationController } from '../controllers/classificationController';
 
 const router = Router();
 
@@ -39,6 +40,12 @@ router.post('/import', upload.single('file'), ticketController.importTickets);
 
 // GET /tickets - List all tickets with optional filtering
 router.get('/', ticketController.getAll);
+
+// POST /tickets/:id/auto-classify - Auto-classify a ticket
+router.post('/:id/auto-classify', classificationController.autoClassify);
+
+// GET /tickets/:id/classification-history - Get classification history
+router.get('/:id/classification-history', classificationController.getHistory);
 
 // GET /tickets/:id - Get specific ticket by ID
 router.get('/:id', ticketController.getById);

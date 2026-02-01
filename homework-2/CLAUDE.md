@@ -40,7 +40,8 @@ The project follows a layered architecture:
 ```
 src/
 ├── controllers/     # HTTP request handlers (thin layer)
-├── services/        # Business logic (ticketService, importService)
+├── services/        # Business logic (ticketService, importService, classificationService)
+├── classifiers/     # Auto-classification logic (category, priority, keyword matching)
 ├── parsers/         # File format parsers (CSV, JSON, XML)
 ├── validators/      # Input validation using Joi
 ├── models/          # Ticket data model
@@ -48,13 +49,14 @@ src/
 ├── middleware/      # Error handling middleware
 ├── routes/          # Express route definitions
 ├── types/           # TypeScript interfaces and enums
-└── utils/           # Constants and helpers
+└── utils/           # Constants, helpers, and classification logger
 ```
 
 **Key Design Patterns:**
-- Singleton pattern for in-memory store
+- Singleton pattern for in-memory store and classification logger
 - Service layer for business logic (controllers stay thin)
 - Custom error classes (ValidationError, NotFoundError) with consistent error response format
+- Keyword-based classification with confidence scoring
 
 ## Ticket Model Enums
 
@@ -69,14 +71,14 @@ src/
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | /health | Health check |
-| POST | /tickets | Create ticket |
+| POST | /tickets | Create ticket (add `?auto_classify=true` for auto-classification) |
 | POST | /tickets/import | Bulk import (multipart file) |
 | GET | /tickets | List with filters (category, priority, status, customer_id, assigned_to) |
 | GET | /tickets/:id | Get by ID |
 | PUT | /tickets/:id | Update |
 | DELETE | /tickets/:id | Delete |
-
-Note: Auto-classification endpoint (`POST /tickets/:id/auto-classify`) is planned for Task 2.
+| POST | /tickets/:id/auto-classify | Auto-classify category and priority |
+| GET | /tickets/:id/classification-history | Get classification decision history |
 
 ## Validation Rules
 

@@ -155,3 +155,58 @@ Content-Type: application/xml
 
 ### Get non-existent ticket (404 error)
 GET http://localhost:3000/tickets/non-existent-id
+
+###############################################
+# Task 2: Auto-Classification Endpoints
+###############################################
+
+### Create ticket with auto-classification
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CUST100",
+  "customer_email": "urgent@example.com",
+  "customer_name": "Urgent User",
+  "subject": "CRITICAL: Can't login to my account - production down!",
+  "description": "I've been trying to login but keep getting an error. My password reset isn't working either. This is critical for my business and blocking all my work. Please help ASAP!",
+  "category": "other",
+  "priority": "low"
+}
+
+### Create ticket for classification test (billing keywords)
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CUST101",
+  "customer_email": "billing@example.com",
+  "customer_name": "Billing User",
+  "subject": "Question about my invoice and payment",
+  "description": "I received my invoice but the charges don't match what I expected. Can you explain the billing and help me understand the refund policy?",
+  "category": "other",
+  "priority": "medium"
+}
+
+### Create ticket for classification test (feature request, low priority)
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CUST102",
+  "customer_email": "feature@example.com",
+  "customer_name": "Feature User",
+  "subject": "Suggestion: Would be nice to have dark mode",
+  "description": "This is just a minor suggestion for the future. When you have time, it would be nice to have a dark mode feature. No rush on this, just an enhancement idea.",
+  "category": "other",
+  "priority": "medium"
+}
+
+### Auto-classify an existing ticket (replace with actual ID)
+POST http://localhost:3000/tickets/{{ticket_id}}/auto-classify
+
+### Get classification history for a ticket (replace with actual ID)
+GET http://localhost:3000/tickets/{{ticket_id}}/classification-history
+
+### Auto-classify non-existent ticket (404 error)
+POST http://localhost:3000/tickets/non-existent-id/auto-classify

@@ -136,3 +136,49 @@ export interface ParsedTicketData {
 
 // File format type
 export type FileFormat = 'csv' | 'json' | 'xml';
+
+// Classification result for a category
+export interface CategoryClassificationResult {
+  category: Category;
+  confidence: number;
+  keywords_found: string[];
+  reasoning: string;
+}
+
+// Classification result for priority
+export interface PriorityClassificationResult {
+  priority: Priority;
+  confidence: number;
+  keywords_found: string[];
+  reasoning: string;
+}
+
+// Combined classification result
+export interface ClassificationResult {
+  ticket_id: string;
+  category: CategoryClassificationResult;
+  priority: PriorityClassificationResult;
+  overall_confidence: number;
+  classified_at: Date;
+  auto_applied: boolean;
+}
+
+// Classification decision log entry
+export interface ClassificationLogEntry {
+  timestamp: Date;
+  ticket_id: string;
+  original_category: Category | null;
+  original_priority: Priority | null;
+  new_category: Category;
+  new_priority: Priority;
+  category_confidence: number;
+  priority_confidence: number;
+  keywords_found: string[];
+  reasoning: string;
+  was_override: boolean;
+}
+
+// Options for ticket creation with auto-classification
+export interface CreateTicketOptions {
+  auto_classify?: boolean;
+}
