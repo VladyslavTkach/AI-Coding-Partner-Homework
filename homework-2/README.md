@@ -1,5 +1,9 @@
 # Customer Support Ticket Management System
 
+> **Student Name**: [Vladyslav Tkach]
+> **Date Submitted**: [04.02.2026]
+> **AI Tools Used**: [Claude Code (for implementation), GitHub Copilot (for planning)]
+
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
 ![Express](https://img.shields.io/badge/Express-4.18-lightgrey)
