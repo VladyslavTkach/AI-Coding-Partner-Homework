@@ -1,0 +1,308 @@
+[
+  {
+    "customer_id": "CUST001",
+    "customer_email": "john.doe@example.com",
+    "customer_name": "John Doe",
+    "subject": "Cannot login to my account",
+    "description": "I have been trying to login but keep getting an error message saying invalid credentials. I have tried resetting my password multiple times.",
+    "category": "account_access",
+    "priority": "high",
+    "status": "new",
+    "tags": ["login", "urgent"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Chrome 120",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST002",
+    "customer_email": "jane.smith@example.com",
+    "customer_name": "Jane Smith",
+    "subject": "Question about my invoice",
+    "description": "I received my invoice and noticed a charge I don't recognize. Can you please explain what this charge is for?",
+    "category": "billing_question",
+    "priority": "medium",
+    "status": "new",
+    "tags": ["billing", "invoice"],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST003",
+    "customer_email": "bob.wilson@example.com",
+    "customer_name": "Bob Wilson",
+    "subject": "App crashes on startup",
+    "description": "The mobile app crashes immediately after I open it. I am using an iPhone 14 with iOS 17. This started after the latest update.",
+    "category": "technical_issue",
+    "priority": "high",
+    "status": "new",
+    "tags": ["crash", "mobile", "ios"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Safari",
+      "device_type": "mobile"
+    }
+  },
+  {
+    "customer_id": "CUST004",
+    "customer_email": "alice.johnson@example.com",
+    "customer_name": "Alice Johnson",
+    "subject": "Feature request: Dark mode",
+    "description": "Would love to have a dark mode option in the app. It would be much easier on the eyes, especially when using the app at night.",
+    "category": "feature_request",
+    "priority": "low",
+    "status": "new",
+    "tags": ["feature", "ui", "dark-mode"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Firefox",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST005",
+    "customer_email": "charlie.brown@example.com",
+    "customer_name": "Charlie Brown",
+    "subject": "URGENT: Production system down",
+    "description": "Our entire production environment is inaccessible. This is a critical emergency affecting all our operations! Need immediate assistance.",
+    "category": "technical_issue",
+    "priority": "urgent",
+    "status": "in_progress",
+    "assigned_to": "agent-1",
+    "tags": ["critical", "production", "emergency"],
+    "metadata": {
+      "source": "phone"
+    }
+  },
+  {
+    "customer_id": "CUST006",
+    "customer_email": "diana.ross@example.com",
+    "customer_name": "Diana Ross",
+    "subject": "Password reset email not received",
+    "description": "I requested a password reset but never received the email. I have checked my spam folder multiple times with no luck.",
+    "category": "account_access",
+    "priority": "high",
+    "status": "new",
+    "tags": ["password", "email"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Chrome 120",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST007",
+    "customer_email": "edward.miller@example.com",
+    "customer_name": "Edward Miller",
+    "subject": "Refund request for order #12345",
+    "description": "I would like to request a refund for my recent order as the product arrived damaged. Order number is 12345.",
+    "category": "billing_question",
+    "priority": "medium",
+    "status": "new",
+    "tags": ["refund", "order", "damaged"],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST008",
+    "customer_email": "fiona.green@example.com",
+    "customer_name": "Fiona Green",
+    "subject": "Bug: Submit button not clickable",
+    "description": "The submit button on the checkout page is not responding to clicks. I can see the button but nothing happens when I click it.",
+    "category": "bug_report",
+    "priority": "high",
+    "status": "new",
+    "tags": ["bug", "checkout", "button"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Chrome 120",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST009",
+    "customer_email": "george.harris@example.com",
+    "customer_name": "George Harris",
+    "subject": "Search feature suggestion",
+    "description": "It would be great if the search functionality could filter results by date range. This would make finding old items much easier.",
+    "category": "feature_request",
+    "priority": "low",
+    "status": "new",
+    "tags": ["search", "enhancement", "filter"],
+    "metadata": {
+      "source": "chat",
+      "device_type": "mobile"
+    }
+  },
+  {
+    "customer_id": "CUST010",
+    "customer_email": "helen.white@example.com",
+    "customer_name": "Helen White",
+    "subject": "Two-factor authentication issues",
+    "description": "I enabled 2FA on my account but now I cannot receive the verification codes on my phone. SMS messages are not arriving.",
+    "category": "account_access",
+    "priority": "high",
+    "status": "new",
+    "tags": ["2fa", "security", "sms"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Safari",
+      "device_type": "mobile"
+    }
+  },
+  {
+    "customer_id": "CUST011",
+    "customer_email": "ivan.black@example.com",
+    "customer_name": "Ivan Black",
+    "subject": "Slow page load times",
+    "description": "The dashboard takes over 30 seconds to load. This performance issue started happening yesterday and makes the app unusable.",
+    "category": "technical_issue",
+    "priority": "medium",
+    "status": "new",
+    "tags": ["performance", "slow", "dashboard"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Firefox",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST012",
+    "customer_email": "julia.red@example.com",
+    "customer_name": "Julia Red",
+    "subject": "Billing cycle change request",
+    "description": "I would like to change my billing cycle from monthly to annual subscription. Please advise on the process.",
+    "category": "billing_question",
+    "priority": "low",
+    "status": "new",
+    "tags": ["billing", "subscription", "annual"],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST013",
+    "customer_email": "kevin.blue@example.com",
+    "customer_name": "Kevin Blue",
+    "subject": "Data export not working",
+    "description": "When I try to export my data to CSV format the download never completes. The progress bar gets stuck at 50%.",
+    "category": "bug_report",
+    "priority": "medium",
+    "status": "new",
+    "tags": ["export", "csv", "download"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Chrome 120",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST014",
+    "customer_email": "laura.gray@example.com",
+    "customer_name": "Laura Gray",
+    "subject": "Mobile app biometric login request",
+    "description": "Please add biometric login support (fingerprint/face ID) for the mobile app. It would make logging in much faster.",
+    "category": "feature_request",
+    "priority": "low",
+    "status": "new",
+    "tags": ["mobile", "biometric", "security"],
+    "metadata": {
+      "source": "api",
+      "device_type": "mobile"
+    }
+  },
+  {
+    "customer_id": "CUST015",
+    "customer_email": "michael.orange@example.com",
+    "customer_name": "Michael Orange",
+    "subject": "Account locked - need urgent help",
+    "description": "My account got locked after entering the wrong password a few times. I need to unlock it urgently for work.",
+    "category": "account_access",
+    "priority": "urgent",
+    "status": "new",
+    "tags": ["locked", "urgent", "password"],
+    "metadata": {
+      "source": "phone"
+    }
+  },
+  {
+    "customer_id": "CUST016",
+    "customer_email": "nancy.purple@example.com",
+    "customer_name": "Nancy Purple",
+    "subject": "Invoice discrepancy found",
+    "description": "The amount on my invoice does not match the quoted price I was given by your sales team. There is a $50 difference.",
+    "category": "billing_question",
+    "priority": "high",
+    "status": "new",
+    "tags": ["invoice", "pricing", "discrepancy"],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST017",
+    "customer_email": "oliver.yellow@example.com",
+    "customer_name": "Oliver Yellow",
+    "subject": "Push notifications not working",
+    "description": "Push notifications are not working on my Android device since the last app update. I have checked all settings.",
+    "category": "technical_issue",
+    "priority": "medium",
+    "status": "new",
+    "tags": ["notifications", "android", "push"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Chrome",
+      "device_type": "mobile"
+    }
+  },
+  {
+    "customer_id": "CUST018",
+    "customer_email": "patricia.pink@example.com",
+    "customer_name": "Patricia Pink",
+    "subject": "API documentation question",
+    "description": "Where can I find the API documentation for integrating with your service? I need to set up an automated workflow.",
+    "category": "other",
+    "priority": "low",
+    "status": "new",
+    "tags": ["api", "documentation", "integration"],
+    "metadata": {
+      "source": "chat",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST019",
+    "customer_email": "quinn.silver@example.com",
+    "customer_name": "Quinn Silver",
+    "subject": "Security vulnerability report",
+    "description": "I found a potential XSS vulnerability on the contact form page. The input field does not properly sanitize user input.",
+    "category": "bug_report",
+    "priority": "urgent",
+    "status": "in_progress",
+    "assigned_to": "agent-2",
+    "tags": ["security", "xss", "vulnerability"],
+    "metadata": {
+      "source": "api",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "CUST020",
+    "customer_email": "rachel.gold@example.com",
+    "customer_name": "Rachel Gold",
+    "subject": "File upload feature broken",
+    "description": "The file upload feature shows an error for any file type I try to upload, including images and PDFs.",
+    "category": "technical_issue",
+    "priority": "high",
+    "status": "new",
+    "tags": ["upload", "error", "files"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Firefox",
+      "device_type": "desktop"
+    }
+  }
+]

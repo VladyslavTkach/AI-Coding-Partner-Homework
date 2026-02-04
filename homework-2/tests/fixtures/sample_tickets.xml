@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>CUST001</customer_id>
+    <customer_email>john.doe@example.com</customer_email>
+    <customer_name>John Doe</customer_name>
+    <subject>Cannot login to my account</subject>
+    <description>I have been trying to login but keep getting an error message saying invalid credentials</description>
+    <category>account_access</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>login</tag><tag>urgent</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST002</customer_id>
+    <customer_email>jane.smith@example.com</customer_email>
+    <customer_name>Jane Smith</customer_name>
+    <subject>Question about my invoice</subject>
+    <description>I received my invoice and noticed a charge I do not recognize. Can you explain?</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>billing</tag><tag>invoice</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST003</customer_id>
+    <customer_email>bob.wilson@example.com</customer_email>
+    <customer_name>Bob Wilson</customer_name>
+    <subject>App crashes on startup</subject>
+    <description>The mobile app crashes immediately after I open it. Using iPhone 14 with iOS 17</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>crash</tag><tag>mobile</tag></tags>
+    <metadata><source>web_form</source><browser>Safari</browser><device_type>mobile</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST004</customer_id>
+    <customer_email>alice.johnson@example.com</customer_email>
+    <customer_name>Alice Johnson</customer_name>
+    <subject>Feature request: Dark mode</subject>
+    <description>Would love to have a dark mode option in the app for better visibility at night</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+    <status>new</status>
+    <tags><tag>feature</tag><tag>ui</tag></tags>
+    <metadata><source>web_form</source><browser>Firefox</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST005</customer_id>
+    <customer_email>charlie.brown@example.com</customer_email>
+    <customer_name>Charlie Brown</customer_name>
+    <subject>URGENT: Production system down</subject>
+    <description>Our entire production environment is inaccessible. This is a critical emergency!</description>
+    <category>technical_issue</category>
+    <priority>urgent</priority>
+    <status>in_progress</status>
+    <assigned_to>agent-1</assigned_to>
+    <tags><tag>critical</tag><tag>production</tag></tags>
+    <metadata><source>phone</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST006</customer_id>
+    <customer_email>diana.ross@example.com</customer_email>
+    <customer_name>Diana Ross</customer_name>
+    <subject>Password reset not working</subject>
+    <description>I requested a password reset but never received the email. Checked spam folder too</description>
+    <category>account_access</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>password</tag><tag>email</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST007</customer_id>
+    <customer_email>edward.miller@example.com</customer_email>
+    <customer_name>Edward Miller</customer_name>
+    <subject>Refund request for order #12345</subject>
+    <description>I would like to request a refund for my recent order as the product was damaged</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>refund</tag><tag>order</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST008</customer_id>
+    <customer_email>fiona.green@example.com</customer_email>
+    <customer_name>Fiona Green</customer_name>
+    <subject>Bug: Button not clickable</subject>
+    <description>The submit button on the checkout page is not responding to clicks at all</description>
+    <category>bug_report</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>bug</tag><tag>checkout</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST009</customer_id>
+    <customer_email>george.harris@example.com</customer_email>
+    <customer_name>George Harris</customer_name>
+    <subject>Suggestion for search feature</subject>
+    <description>It would be great if the search could filter by date range as well</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+    <status>new</status>
+    <tags><tag>search</tag><tag>enhancement</tag></tags>
+    <metadata><source>chat</source><device_type>mobile</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST010</customer_id>
+    <customer_email>helen.white@example.com</customer_email>
+    <customer_name>Helen White</customer_name>
+    <subject>Two-factor authentication issues</subject>
+    <description>I enabled 2FA but now I cannot receive the verification codes on my phone</description>
+    <category>account_access</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>2fa</tag><tag>security</tag></tags>
+    <metadata><source>web_form</source><browser>Safari</browser><device_type>mobile</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST011</customer_id>
+    <customer_email>ivan.black@example.com</customer_email>
+    <customer_name>Ivan Black</customer_name>
+    <subject>Slow page load times</subject>
+    <description>The dashboard takes over 30 seconds to load. This started happening yesterday</description>
+    <category>technical_issue</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>performance</tag><tag>slow</tag></tags>
+    <metadata><source>web_form</source><browser>Firefox</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST012</customer_id>
+    <customer_email>julia.red@example.com</customer_email>
+    <customer_name>Julia Red</customer_name>
+    <subject>Billing cycle change request</subject>
+    <description>I would like to change my billing cycle from monthly to annual subscription</description>
+    <category>billing_question</category>
+    <priority>low</priority>
+    <status>new</status>
+    <tags><tag>billing</tag><tag>subscription</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST013</customer_id>
+    <customer_email>kevin.blue@example.com</customer_email>
+    <customer_name>Kevin Blue</customer_name>
+    <subject>Data export not working</subject>
+    <description>When I try to export my data to CSV the download never completes properly</description>
+    <category>bug_report</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>export</tag><tag>csv</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST014</customer_id>
+    <customer_email>laura.gray@example.com</customer_email>
+    <customer_name>Laura Gray</customer_name>
+    <subject>Mobile app feature request</subject>
+    <description>Please add biometric login support for the mobile app like fingerprint or face ID</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+    <status>new</status>
+    <tags><tag>mobile</tag><tag>biometric</tag></tags>
+    <metadata><source>api</source><device_type>mobile</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST015</customer_id>
+    <customer_email>michael.orange@example.com</customer_email>
+    <customer_name>Michael Orange</customer_name>
+    <subject>Account locked after failed attempts</subject>
+    <description>My account got locked after entering wrong password. Need to unlock it urgently</description>
+    <category>account_access</category>
+    <priority>urgent</priority>
+    <status>new</status>
+    <tags><tag>locked</tag><tag>urgent</tag></tags>
+    <metadata><source>phone</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST016</customer_id>
+    <customer_email>nancy.purple@example.com</customer_email>
+    <customer_name>Nancy Purple</customer_name>
+    <subject>Invoice discrepancy found</subject>
+    <description>The amount on my invoice does not match the quoted price I was given initially</description>
+    <category>billing_question</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>invoice</tag><tag>pricing</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST017</customer_id>
+    <customer_email>oliver.yellow@example.com</customer_email>
+    <customer_name>Oliver Yellow</customer_name>
+    <subject>App notification issues</subject>
+    <description>Push notifications are not working on my Android device since the last update</description>
+    <category>technical_issue</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>notifications</tag><tag>android</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome</browser><device_type>mobile</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST018</customer_id>
+    <customer_email>patricia.pink@example.com</customer_email>
+    <customer_name>Patricia Pink</customer_name>
+    <subject>Integration API documentation</subject>
+    <description>Where can I find the API documentation for integrating with your service?</description>
+    <category>other</category>
+    <priority>low</priority>
+    <status>new</status>
+    <tags><tag>api</tag><tag>documentation</tag></tags>
+    <metadata><source>chat</source><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST019</customer_id>
+    <customer_email>quinn.silver@example.com</customer_email>
+    <customer_name>Quinn Silver</customer_name>
+    <subject>Security vulnerability report</subject>
+    <description>I found a potential XSS vulnerability on the contact form page that needs attention</description>
+    <category>bug_report</category>
+    <priority>urgent</priority>
+    <status>in_progress</status>
+    <assigned_to>agent-2</assigned_to>
+    <tags><tag>security</tag><tag>xss</tag></tags>
+    <metadata><source>api</source><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST020</customer_id>
+    <customer_email>rachel.gold@example.com</customer_email>
+    <customer_name>Rachel Gold</customer_name>
+    <subject>Cannot upload files</subject>
+    <description>File upload feature shows error for any file type I try to upload including images</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>upload</tag><tag>error</tag></tags>
+    <metadata><source>web_form</source><browser>Firefox</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST021</customer_id>
+    <customer_email>samuel.bronze@example.com</customer_email>
+    <customer_name>Samuel Bronze</customer_name>
+    <subject>Subscription cancellation</subject>
+    <description>I would like to cancel my subscription effective immediately please process this</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>cancel</tag><tag>subscription</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST022</customer_id>
+    <customer_email>tina.copper@example.com</customer_email>
+    <customer_name>Tina Copper</customer_name>
+    <subject>Profile picture not saving</subject>
+    <description>Every time I update my profile picture it reverts to the default one after refresh</description>
+    <category>bug_report</category>
+    <priority>low</priority>
+    <status>new</status>
+    <tags><tag>profile</tag><tag>image</tag></tags>
+    <metadata><source>web_form</source><browser>Safari</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST023</customer_id>
+    <customer_email>ulysses.iron@example.com</customer_email>
+    <customer_name>Ulysses Iron</customer_name>
+    <subject>Request for enterprise pricing</subject>
+    <description>We are interested in enterprise plan pricing for 500 plus users at our company</description>
+    <category>other</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>enterprise</tag><tag>pricing</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST024</customer_id>
+    <customer_email>victoria.steel@example.com</customer_email>
+    <customer_name>Victoria Steel</customer_name>
+    <subject>SSO login not working</subject>
+    <description>Single sign-on with our company Google account is failing with an error</description>
+    <category>account_access</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>sso</tag><tag>google</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST025</customer_id>
+    <customer_email>walter.chrome@example.com</customer_email>
+    <customer_name>Walter Chrome</customer_name>
+    <subject>Feature: Bulk user import</subject>
+    <description>We need the ability to import users in bulk via CSV file for onboarding</description>
+    <category>feature_request</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>bulk</tag><tag>import</tag></tags>
+    <metadata><source>api</source><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST026</customer_id>
+    <customer_email>xena.titanium@example.com</customer_email>
+    <customer_name>Xena Titanium</customer_name>
+    <subject>Payment processing error</subject>
+    <description>Getting error code PY001 when trying to process payment with my credit card</description>
+    <category>billing_question</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>payment</tag><tag>error</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>desktop</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST027</customer_id>
+    <customer_email>yuri.platinum@example.com</customer_email>
+    <customer_name>Yuri Platinum</customer_name>
+    <subject>Mobile app update broke features</subject>
+    <description>After updating to version 3.2 several features stopped working on mobile</description>
+    <category>technical_issue</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags><tag>update</tag><tag>mobile</tag></tags>
+    <metadata><source>web_form</source><browser>Safari</browser><device_type>mobile</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST028</customer_id>
+    <customer_email>zara.diamond@example.com</customer_email>
+    <customer_name>Zara Diamond</customer_name>
+    <subject>Accessibility improvements request</subject>
+    <description>Please improve screen reader compatibility for visually impaired users</description>
+    <category>feature_request</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>accessibility</tag><tag>a11y</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST029</customer_id>
+    <customer_email>adam.ruby@example.com</customer_email>
+    <customer_name>Adam Ruby</customer_name>
+    <subject>Data sync issues between devices</subject>
+    <description>Changes made on mobile are not syncing to the desktop version properly</description>
+    <category>bug_report</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>sync</tag><tag>data</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome 120</browser><device_type>tablet</device_type></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST030</customer_id>
+    <customer_email>bella.emerald@example.com</customer_email>
+    <customer_name>Bella Emerald</customer_name>
+    <subject>Account deletion request</subject>
+    <description>I would like to delete my account and all associated data as per GDPR</description>
+    <category>other</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <tags><tag>delete</tag><tag>gdpr</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+</tickets>
