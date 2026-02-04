@@ -299,5 +299,57 @@ describe('XML Parser', () => {
       const result = await parseXML(xml);
       expect(result).toHaveLength(2);
     });
+
+    it('should handle direct ticket element at root level (single ticket)', async () => {
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<ticket>
+  <customer_id>CUST001</customer_id>
+  <customer_email>test@example.com</customer_email>
+  <customer_name>Test User</customer_name>
+  <subject>Test Subject</subject>
+  <description>Test description here</description>
+  <category>technical_issue</category>
+  <priority>medium</priority>
+</ticket>`;
+
+      const result = await parseXML(xml);
+      expect(result).toHaveLength(1);
+      expect(result[0].customer_id).toBe('CUST001');
+    });
+
+    it('should handle text with attributes (xml2js _ property)', async () => {
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id type="external">CUST001</customer_id>
+    <customer_email>test@example.com</customer_email>
+    <customer_name>Test User</customer_name>
+    <subject>Test Subject</subject>
+    <description>Test description here</description>
+  </ticket>
+</tickets>`;
+
+      const result = await parseXML(xml);
+      expect(result).toHaveLength(1);
+      // With attributes, xml2js returns { _: 'value', $: { type: 'external' } }
+      // getValue should extract the _ property
+      expect(result[0].customer_id).toBeDefined();
+    });
+
+    it('should handle numeric values in XML', async () => {
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>12345</customer_id>
+    <customer_email>test@example.com</customer_email>
+    <customer_name>Test User</customer_name>
+    <subject>Test Subject</subject>
+    <description>Test description here</description>
+  </ticket>
+</tickets>`;
+
+      const result = await parseXML(xml);
+      expect(result[0].customer_id).toBe('12345');
+    });
   });
 });

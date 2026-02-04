@@ -183,3 +183,74 @@ export function createValidXML(count: number = 3): string {
 export function wait(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * Options for seeding store with specific distribution
+ */
+export interface SeedDistributionOptions {
+  categories?: Category[];
+  priorities?: Priority[];
+  statuses?: Status[];
+}
+
+/**
+ * Seed the store with a specified distribution of tickets
+ * Allows more control over the distribution of categories, priorities, and statuses
+ */
+export function seedStoreWithDistribution(
+  count: number,
+  options?: SeedDistributionOptions
+): string[] {
+  const ids: string[] = [];
+  const categories = options?.categories || Object.values(Category);
+  const priorities = options?.priorities || Object.values(Priority);
+  const statuses = options?.statuses || [Status.NEW];
+
+  for (let i = 0; i < count; i++) {
+    const ticketData = createValidTicketData({
+      customer_id: `CUST${i.toString().padStart(3, '0')}`,
+      customer_email: `user${i}@example.com`,
+      customer_name: `Test User ${i}`,
+      subject: `Test ticket subject ${i}`,
+      description: `This is test ticket description number ${i} with enough characters`,
+      category: categories[i % categories.length],
+      priority: priorities[i % priorities.length],
+      status: statuses[i % statuses.length]
+    });
+
+    const ticket = createTicket(ticketData);
+    store.create(ticket);
+    ids.push(ticket.id);
+  }
+
+  return ids;
+}
+
+/**
+ * Create concurrent requests and return Promise.all result
+ * @param count Number of requests to create
+ * @param requestFn Function that creates and returns a request promise
+ */
+export async function createConcurrentRequests<T>(
+  count: number,
+  requestFn: (index: number) => Promise<T>
+): Promise<T[]> {
+  const requests = Array(count)
+    .fill(null)
+    .map((_, index) => requestFn(index));
+  return Promise.all(requests);
+}
+
+/**
+ * Measure response time for a request
+ * @param requestFn Function that performs the request
+ * @returns Object containing the response and duration in milliseconds
+ */
+export async function measureResponseTime<T>(
+  requestFn: () => Promise<T>
+): Promise<{ response: T; duration: number }> {
+  const start = Date.now();
+  const response = await requestFn();
+  const duration = Date.now() - start;
+  return { response, duration };
+}

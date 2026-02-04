@@ -159,6 +159,29 @@ describe('Ticket API', () => {
       expect(response.body.tickets).toHaveLength(1);
       expect(response.body.tickets[0].status).toBe(Status.IN_PROGRESS);
     });
+
+    it('should filter tickets by assigned_to', async () => {
+      createTicketInStore({ assigned_to: 'agent-1', customer_id: 'CUST001' });
+      createTicketInStore({ assigned_to: 'agent-2', customer_id: 'CUST002' });
+      createTicketInStore({ customer_id: 'CUST003' }); // No assigned_to
+
+      const response = await request(app).get('/tickets?assigned_to=agent-1');
+
+      expect(response.status).toBe(200);
+      expect(response.body.tickets).toHaveLength(1);
+      expect(response.body.tickets[0].assigned_to).toBe('agent-1');
+    });
+
+    it('should ignore invalid filter values', async () => {
+      createTicketInStore({ category: Category.BILLING_QUESTION, customer_id: 'CUST001' });
+      createTicketInStore({ category: Category.TECHNICAL_ISSUE, customer_id: 'CUST002' });
+
+      // Invalid category should be ignored and return all tickets
+      const response = await request(app).get('/tickets?category=invalid_category');
+
+      expect(response.status).toBe(200);
+      expect(response.body.tickets).toHaveLength(2);
+    });
   });
 
   describe('PUT /tickets/:id', () => {

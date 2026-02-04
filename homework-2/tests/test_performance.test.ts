@@ -6,29 +6,31 @@ import {
   createValidTicketData,
   clearStore,
   seedStore,
-  createValidCSV
+  seedStoreWithDistribution,
+  createValidCSV,
+  createConcurrentRequests,
+  measureResponseTime
 } from './helpers/testUtils';
+import { Category, Priority } from '../src/types';
 
 describe('Performance Tests', () => {
   beforeEach(() => {
     clearStore();
   });
 
-  // PERF-01: Single ticket creation
+  // PERF-01: Single ticket creation (using measureResponseTime helper)
   it('should create ticket within 100ms', async () => {
     const ticketData = createValidTicketData();
 
-    const start = Date.now();
-    const response = await request(app)
-      .post('/tickets')
-      .send(ticketData);
-    const duration = Date.now() - start;
+    const { response, duration } = await measureResponseTime(() =>
+      request(app).post('/tickets').send(ticketData)
+    );
 
     expect(response.status).toBe(201);
     expect(duration).toBeLessThan(100);
   });
 
-  // PERF-02: Get ticket by ID
+  // PERF-02: Get ticket by ID (using measureResponseTime helper)
   it('should get ticket by ID within 50ms', async () => {
     // Create a ticket first
     const createRes = await request(app)
@@ -36,9 +38,9 @@ describe('Performance Tests', () => {
       .send(createValidTicketData());
     const ticketId = createRes.body.id;
 
-    const start = Date.now();
-    const response = await request(app).get(`/tickets/${ticketId}`);
-    const duration = Date.now() - start;
+    const { response, duration } = await measureResponseTime(() =>
+      request(app).get(`/tickets/${ticketId}`)
+    );
 
     expect(response.status).toBe(200);
     expect(duration).toBeLessThan(50);
@@ -116,13 +118,17 @@ describe('Performance Tests', () => {
       expect(listRes.body.count).toBe(requestCount);
     });
 
+    // PERF-07: Filter 500 tickets (using seedStoreWithDistribution helper)
     it('should filter 500 tickets efficiently', async () => {
-      // Seed 500 tickets with distribution
-      seedStore(500, true);
+      // Seed 500 tickets with specific distribution
+      seedStoreWithDistribution(500, {
+        categories: [Category.TECHNICAL_ISSUE, Category.BILLING_QUESTION, Category.ACCOUNT_ACCESS],
+        priorities: [Priority.HIGH, Priority.MEDIUM, Priority.LOW]
+      });
 
-      const start = Date.now();
-      const response = await request(app).get('/tickets?category=technical_issue');
-      const duration = Date.now() - start;
+      const { response, duration } = await measureResponseTime(() =>
+        request(app).get('/tickets?category=technical_issue')
+      );
 
       expect(response.status).toBe(200);
       expect(response.body.tickets.length).toBeGreaterThan(0);
@@ -163,6 +169,7 @@ describe('Performance Tests', () => {
       expect(duration).toBeLessThan(50);
     });
 
+    // Using createConcurrentRequests helper for parallel classification
     it('should handle parallel classification requests', async () => {
       // Create 10 tickets
       const ticketIds: string[] = [];
@@ -178,10 +185,9 @@ describe('Performance Tests', () => {
       }
 
       const start = Date.now();
-      const classifyPromises = ticketIds.map(id =>
-        request(app).post(`/tickets/${id}/auto-classify`)
+      const results = await createConcurrentRequests(ticketIds.length, (index) =>
+        request(app).post(`/tickets/${ticketIds[index]}/auto-classify`)
       );
-      const results = await Promise.all(classifyPromises);
       const duration = Date.now() - start;
 
       results.forEach(res => {

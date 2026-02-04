@@ -344,5 +344,31 @@ CUST001,test@example.com,Test User,Test Subject,This is a valid description text
       const ticket = store.findById(result.created_ids[0]);
       expect(ticket?.assigned_to).toBe('agent-1');
     });
+
+    it('should normalize string tags from JSON', async () => {
+      const content = JSON.stringify([{
+        customer_id: 'CUST001',
+        customer_email: 'test@example.com',
+        customer_name: 'Test User',
+        subject: 'Test Subject',
+        description: 'This is a valid description text',
+        category: 'technical_issue',
+        priority: 'medium',
+        tags: 'tag1, tag2, tag3'
+      }]);
+
+      const result = await importTickets(content, 'json');
+
+      expect(result.successful).toBe(1);
+      const ticket = store.findById(result.created_ids[0]);
+      expect(ticket?.tags).toEqual(['tag1', 'tag2', 'tag3']);
+    });
+  });
+
+  describe('parseFile edge cases', () => {
+    it('should throw for unsupported format', async () => {
+      await expect(parseFile('content', 'xyz' as any)).rejects.toThrow(BadRequestError);
+      await expect(parseFile('content', 'xyz' as any)).rejects.toThrow('Unsupported file format');
+    });
   });
 });

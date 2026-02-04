@@ -5,7 +5,11 @@ import { classificationLogger } from '../src/utils/logger';
 import {
   createValidTicketData,
   clearStore,
-  createValidCSV
+  createValidCSV,
+  createValidJSON,
+  createValidXML,
+  createConcurrentRequests,
+  measureResponseTime
 } from './helpers/testUtils';
 import { Category, Priority, Status } from '../src/types';
 
@@ -116,6 +120,87 @@ CUST003,user3@example.com,User Three,Feature request for dark mode,Would like to
       (t: { customer_id: string }) => t.customer_id === 'CUST003'
     );
     expect(featureTicket.category).toBe(Category.FEATURE_REQUEST);
+  });
+
+  // INT-06: Multi-Format Import Workflow
+  it('should import tickets from all supported formats (CSV, JSON, XML)', async () => {
+    // Step 1: Import via CSV
+    const csvContent = `customer_id,customer_email,customer_name,subject,description,category,priority
+CSV001,csv@example.com,CSV User,CSV Import Test,This is a test ticket imported via CSV format,technical_issue,medium`;
+
+    const csvRes = await request(app)
+      .post('/tickets/import')
+      .attach('file', Buffer.from(csvContent), 'tickets.csv');
+
+    expect(csvRes.status).toBe(200);
+    expect(csvRes.body.summary.successful).toBe(1);
+
+    // Step 2: Import via JSON
+    const jsonContent = JSON.stringify([
+      {
+        customer_id: 'JSON001',
+        customer_email: 'json@example.com',
+        customer_name: 'JSON User',
+        subject: 'JSON Import Test',
+        description: 'This is a test ticket imported via JSON format',
+        category: 'billing_question',
+        priority: 'high'
+      }
+    ]);
+
+    const jsonRes = await request(app)
+      .post('/tickets/import')
+      .attach('file', Buffer.from(jsonContent), 'tickets.json');
+
+    expect(jsonRes.status).toBe(200);
+    expect(jsonRes.body.summary.successful).toBe(1);
+
+    // Step 3: Import via XML
+    const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>XML001</customer_id>
+    <customer_email>xml@example.com</customer_email>
+    <customer_name>XML User</customer_name>
+    <subject>XML Import Test</subject>
+    <description>This is a test ticket imported via XML format</description>
+    <category>feature_request</category>
+    <priority>low</priority>
+  </ticket>
+</tickets>`;
+
+    const xmlRes = await request(app)
+      .post('/tickets/import')
+      .attach('file', Buffer.from(xmlContent), 'tickets.xml');
+
+    expect(xmlRes.status).toBe(200);
+    expect(xmlRes.body.summary.successful).toBe(1);
+
+    // Step 4: Verify total count (3 tickets imported from all formats)
+    const listRes = await request(app).get('/tickets');
+    expect(listRes.body.count).toBe(3);
+
+    // Step 5: Verify data consistency across formats
+    const csvTicket = listRes.body.tickets.find(
+      (t: { customer_id: string }) => t.customer_id === 'CSV001'
+    );
+    expect(csvTicket).toBeDefined();
+    expect(csvTicket.customer_email).toBe('csv@example.com');
+    expect(csvTicket.category).toBe(Category.TECHNICAL_ISSUE);
+
+    const jsonTicket = listRes.body.tickets.find(
+      (t: { customer_id: string }) => t.customer_id === 'JSON001'
+    );
+    expect(jsonTicket).toBeDefined();
+    expect(jsonTicket.customer_email).toBe('json@example.com');
+    expect(jsonTicket.category).toBe(Category.BILLING_QUESTION);
+
+    const xmlTicket = listRes.body.tickets.find(
+      (t: { customer_id: string }) => t.customer_id === 'XML001'
+    );
+    expect(xmlTicket).toBeDefined();
+    expect(xmlTicket.customer_email).toBe('xml@example.com');
+    expect(xmlTicket.category).toBe(Category.FEATURE_REQUEST);
   });
 
   // INT-03: Classification history tracking
