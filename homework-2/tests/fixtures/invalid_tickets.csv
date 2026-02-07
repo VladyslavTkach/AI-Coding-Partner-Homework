@@ -1,0 +1,4 @@
+customer_id,customer_email,customer_name,subject,description,category,priority
+CUST001,invalid-email,John Doe,Test,Short,account_access,high
+,valid@example.com,Jane Smith,,This is a valid description with enough characters,billing_question,medium
+CUST003,bob@example.com,Bob Wilson,Valid subject,Too short,invalid_category,urgent

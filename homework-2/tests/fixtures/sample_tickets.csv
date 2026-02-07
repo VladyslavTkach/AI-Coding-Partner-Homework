@@ -1,0 +1,51 @@
+customer_id,customer_email,customer_name,subject,description,category,priority,status,assigned_to,tags,source,browser,device_type
+CUST001,john.doe@example.com,John Doe,Cannot login to my account,I have been trying to login but keep getting an error message saying invalid credentials,account_access,high,new,,"login,urgent",web_form,Chrome 120,desktop
+CUST002,jane.smith@example.com,Jane Smith,Question about my invoice,I received my invoice and noticed a charge I don't recognize. Can you explain?,billing_question,medium,new,,"billing,invoice",email,,
+CUST003,bob.wilson@example.com,Bob Wilson,App crashes on startup,The mobile app crashes immediately after I open it. Using iPhone 14 with iOS 17,technical_issue,high,new,,"crash,mobile",web_form,Safari,mobile
+CUST004,alice.johnson@example.com,Alice Johnson,Feature request: Dark mode,Would love to have a dark mode option in the app. It would be easier on the eyes,feature_request,low,new,,"feature,ui",web_form,Firefox,desktop
+CUST005,charlie.brown@example.com,Charlie Brown,URGENT: Production system down,Our entire production environment is inaccessible. This is a critical emergency!,technical_issue,urgent,in_progress,agent-1,"critical,production",phone,,
+CUST006,diana.ross@example.com,Diana Ross,Password reset not working,I requested a password reset but never received the email. Checked spam folder too,account_access,high,new,,"password,email",web_form,Chrome 120,desktop
+CUST007,edward.miller@example.com,Edward Miller,Refund request for order #12345,I would like to request a refund for my recent order as the product was damaged,billing_question,medium,new,,"refund,order",email,,
+CUST008,fiona.green@example.com,Fiona Green,Bug: Button not clickable,The submit button on the checkout page is not responding to clicks,bug_report,high,new,,"bug,checkout",web_form,Chrome 120,desktop
+CUST009,george.harris@example.com,George Harris,Suggestion for search feature,It would be great if the search could filter by date range as well,feature_request,low,new,,"search,enhancement",chat,,mobile
+CUST010,helen.white@example.com,Helen White,Two-factor authentication issues,I enabled 2FA but now I cannot receive the verification codes,account_access,high,new,,"2fa,security",web_form,Safari,mobile
+CUST011,ivan.black@example.com,Ivan Black,Slow page load times,The dashboard takes over 30 seconds to load. This started happening yesterday,technical_issue,medium,new,,"performance,slow",web_form,Firefox,desktop
+CUST012,julia.red@example.com,Julia Red,Billing cycle change request,I would like to change my billing cycle from monthly to annual,billing_question,low,new,,"billing,subscription",email,,
+CUST013,kevin.blue@example.com,Kevin Blue,Data export not working,When I try to export my data to CSV the download never completes,bug_report,medium,new,,"export,csv",web_form,Chrome 120,desktop
+CUST014,laura.gray@example.com,Laura Gray,Mobile app feature request,Please add biometric login support for the mobile app,feature_request,low,new,,"mobile,biometric",api,,mobile
+CUST015,michael.orange@example.com,Michael Orange,Account locked after failed attempts,My account got locked after entering wrong password. Need to unlock it urgently,account_access,urgent,new,,"locked,urgent",phone,,
+CUST016,nancy.purple@example.com,Nancy Purple,Invoice discrepancy found,The amount on my invoice does not match the quoted price I was given,billing_question,high,new,,"invoice,pricing",email,,
+CUST017,oliver.yellow@example.com,Oliver Yellow,App notification issues,Push notifications are not working on my Android device since the last update,technical_issue,medium,new,,"notifications,android",web_form,Chrome,mobile
+CUST018,patricia.pink@example.com,Patricia Pink,Integration API documentation,Where can I find the API documentation for integrating with your service?,other,low,new,,"api,documentation",chat,,desktop
+CUST019,quinn.silver@example.com,Quinn Silver,Security vulnerability report,I found a potential XSS vulnerability on the contact form page,bug_report,urgent,in_progress,agent-2,"security,xss",api,,desktop
+CUST020,rachel.gold@example.com,Rachel Gold,Cannot upload files,File upload feature shows error for any file type I try to upload,technical_issue,high,new,,"upload,error",web_form,Firefox,desktop
+CUST021,samuel.bronze@example.com,Samuel Bronze,Subscription cancellation,I would like to cancel my subscription effective immediately,billing_question,medium,new,,"cancel,subscription",email,,
+CUST022,tina.copper@example.com,Tina Copper,Profile picture not saving,Every time I update my profile picture it reverts to the default one,bug_report,low,new,,"profile,image",web_form,Safari,desktop
+CUST023,ulysses.iron@example.com,Ulysses Iron,Request for enterprise pricing,We are interested in enterprise plan pricing for 500+ users,other,medium,new,,"enterprise,pricing",email,,
+CUST024,victoria.steel@example.com,Victoria Steel,SSO login not working,Single sign-on with our company Google account is failing,account_access,high,new,,"sso,google",web_form,Chrome 120,desktop
+CUST025,walter.chrome@example.com,Walter Chrome,Feature: Bulk user import,Need ability to import users in bulk via CSV file,feature_request,medium,new,,"bulk,import",api,,desktop
+CUST026,xena.titanium@example.com,Xena Titanium,Payment processing error,Getting error code PY001 when trying to process payment,billing_question,high,new,,"payment,error",web_form,Chrome 120,desktop
+CUST027,yuri.platinum@example.com,Yuri Platinum,Mobile app update broke features,After updating to version 3.2 several features stopped working,technical_issue,high,new,,"update,mobile",web_form,Safari,mobile
+CUST028,zara.diamond@example.com,Zara Diamond,Accessibility improvements request,Please improve screen reader compatibility for visually impaired users,feature_request,medium,new,,"accessibility,a11y",email,,
+CUST029,adam.ruby@example.com,Adam Ruby,Data sync issues between devices,Changes made on mobile are not syncing to the desktop version,bug_report,medium,new,,"sync,data",web_form,Chrome 120,tablet
+CUST030,bella.emerald@example.com,Bella Emerald,Account deletion request,I would like to delete my account and all associated data,other,medium,new,,"delete,gdpr",email,,
+CUST031,carl.sapphire@example.com,Carl Sapphire,Cannot connect to API,Getting 401 unauthorized errors when trying to connect to the API,technical_issue,high,new,,"api,auth",api,,desktop
+CUST032,daisy.pearl@example.com,Daisy Pearl,Incorrect tax calculation,The tax amount being calculated seems incorrect for my state,billing_question,medium,new,,"tax,calculation",web_form,Firefox,desktop
+CUST033,ethan.jade@example.com,Ethan Jade,Session timeout too short,My session keeps timing out after just a few minutes of inactivity,technical_issue,low,new,,"session,timeout",web_form,Chrome 120,desktop
+CUST034,flora.opal@example.com,Flora Opal,Request keyboard shortcuts,Would be helpful to have keyboard shortcuts for common actions,feature_request,low,new,,"keyboard,shortcuts",chat,,desktop
+CUST035,gary.topaz@example.com,Gary Topaz,Email notifications not arriving,I have notifications enabled but not receiving any emails,technical_issue,medium,new,,"email,notifications",web_form,Safari,mobile
+CUST036,holly.amber@example.com,Holly Amber,Duplicate charges on card,I was charged twice for the same subscription month,billing_question,urgent,new,,"duplicate,charge",phone,,
+CUST037,ian.onyx@example.com,Ian Onyx,Report generation failing,Custom reports are failing to generate with timeout error,bug_report,high,new,,"reports,timeout",web_form,Chrome 120,desktop
+CUST038,jenny.quartz@example.com,Jenny Quartz,Multi-language support request,Please add support for Spanish language in the interface,feature_request,low,new,,"language,i18n",email,,
+CUST039,kyle.garnet@example.com,Kyle Garnet,Login page SSL certificate error,Getting SSL certificate warning when accessing the login page,technical_issue,urgent,in_progress,agent-1,"ssl,security",web_form,Firefox,desktop
+CUST040,luna.coral@example.com,Luna Coral,Promo code not applying,Tried to apply promo code SAVE20 but it says invalid,billing_question,low,new,,"promo,discount",chat,,mobile
+CUST041,mark.jasper@example.com,Mark Jasper,API rate limiting concerns,We are hitting rate limits during peak hours need higher quota,other,high,new,,"api,ratelimit",api,,desktop
+CUST042,nora.turquoise@example.com,Nora Turquoise,Form validation error,Getting validation error on address field even with valid input,bug_report,medium,new,,"form,validation",web_form,Chrome 120,desktop
+CUST043,oscar.lapis@example.com,Oscar Lapis,Print functionality broken,Print feature only prints blank pages in Chrome browser,bug_report,low,new,,"print,chrome",web_form,Chrome 120,desktop
+CUST044,penny.beryl@example.com,Penny Beryl,Calendar integration request,Would love to sync events with Google Calendar,feature_request,medium,new,,"calendar,integration",web_form,Firefox,desktop
+CUST045,quentin.zircon@example.com,Quentin Zircon,Password complexity requirements,Current password requirements are too strict need to simplify,other,low,new,,"password,ux",email,,
+CUST046,rosa.citrine@example.com,Rosa Citrine,Mobile checkout process issue,Cannot complete checkout on mobile the page keeps refreshing,bug_report,high,new,,"checkout,mobile",web_form,Safari,mobile
+CUST047,steve.peridot@example.com,Steve Peridot,Annual subscription discount inquiry,Is there a discount available for paying annually?,billing_question,low,new,,"discount,annual",chat,,desktop
+CUST048,tara.moonstone@example.com,Tara Moonstone,Dashboard widgets not loading,Several dashboard widgets show loading spinner indefinitely,technical_issue,medium,new,,"dashboard,widgets",web_form,Chrome 120,desktop
+CUST049,uma.sunstone@example.com,Uma Sunstone,Request for data backup feature,Need ability to create manual backups of our data,feature_request,medium,new,,"backup,data",api,,desktop
+CUST050,victor.alexandrite@example.com,Victor Alexandrite,Account merge request,I have two accounts and would like to merge them into one,other,medium,new,,"merge,account",email,,

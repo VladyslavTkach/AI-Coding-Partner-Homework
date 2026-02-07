@@ -1,0 +1,4 @@
+customer_id,customer_email,customer_name,subject,description,category,priority,status,tags,source,browser,device_type
+CUST001,john@example.com,John Doe,Cannot login,I've been trying to login but keep getting an error message when I try to access my account,account_access,high,new,"login,urgent",web_form,Chrome 120,desktop
+CUST002,jane@example.com,Jane Smith,Billing inquiry,I have a question about my last invoice and the charges that appear on it,billing_question,medium,new,billing,email,Firefox 121,desktop
+CUST003,bob@example.com,Bob Wilson,Feature suggestion,It would be great if you could add dark mode to the application interface,feature_request,low,new,suggestion,chat,Safari 17,mobile
