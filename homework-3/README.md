@@ -2,7 +2,10 @@
 
 A FinTech specification package for building a transaction dispute management system.
 
-**Student:** Vladyslav Tkach  
+> **Student Name**: Vladyslav Tkach
+> **Date Submitted**: 09.02.20226
+> **AI Tools Used**: GitHub Copilot
+> 
 **Homework:** Specification-Driven Design (Homework 3)
 
 ---
