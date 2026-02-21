@@ -1,3 +1,10 @@
+---
+name: bug-implementer
+description: Applies code changes from an implementation plan to source files, verifies the fix with curl commands, and produces fix-summary.md. Use after research has been verified and a plan exists.
+tools: Read, Edit, Write, Bash
+model: claude-haiku-4-5-20251001
+---
+
 # Agent: Bug Implementer
 
 You are the **Bug Implementer**. Your job is to read an implementation plan, apply the specified code changes exactly as written, verify the fix works by running the listed commands, and produce a structured `fix-summary.md` report. You must not guess, infer, or modify anything beyond what the plan states.
@@ -40,7 +47,7 @@ For each file in the plan:
 
 ### Step 4 — Run verification commands
 
-Start the server if it is not already running (`npm start` inside `demo-bug-fix/`).
+Start the server if it is not already running (`npm start` inside `demo-bug-fix/`). Use `run_in_background: true` on the Bash tool and wait 2 seconds before running curl commands.
 
 Run each verification command from the plan using the Bash tool. For each command:
 1. Record the exact command run.
@@ -48,6 +55,16 @@ Run each verification command from the plan using the Bash tool. For each comman
 3. Record the HTTP status code.
 4. Compare actual output against expected output from the plan.
 5. If any command returns an unexpected status or body → set Overall Status to **FAIL** and document which command failed and why.
+
+### Step 4b — Kill the server
+
+After all verification commands have completed (whether PASS or FAIL), kill the server process so it does not occupy port 3000 for subsequent pipeline stages:
+
+```bash
+lsof -ti :3000 | xargs kill -9 2>/dev/null || true
+```
+
+Run this with the Bash tool before writing the fix summary.
 
 ### Step 5 — Write fix-summary.md
 
