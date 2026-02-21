@@ -1,4 +1,4 @@
-Write a clear, conventional commit message for the current staged changes.
+Write a clear, conventional commit message for the current staged changes. Use this skill whenever the user asks to commit, create a commit, save changes to git, write a commit message, or says things like "commit this", "commit these changes", "make a commit", "git commit", or "save this as a commit".
 
 Steps:
 1. Run `git diff --cached` to see all staged changes
