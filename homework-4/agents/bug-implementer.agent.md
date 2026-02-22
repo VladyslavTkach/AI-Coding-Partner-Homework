@@ -68,13 +68,47 @@ Run this with the Bash tool before writing the fix summary.
 
 ### Step 5 — Write fix-summary.md
 
-Write the output file at `context/bugs/API-404/fix-summary.md`.
+Write the output file at `context/bugs/API-404/fix-summary.md` using the format in the **Appendix** at the bottom of this file.
 
-The file must contain exactly these sections in this order:
+### Step 6 — Launch Security Verifier and Unit Test Generator
+
+Check the `Overall Status` you wrote in `fix-summary.md`:
+
+- If **PASS** or **PARTIAL** → launch both agents **in the same message** (in parallel) using the Task tool:
+
+  **Task A**:
+  - `subagent_type`: `security-verifier`
+  - `prompt`: `Run the Security Verifier for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+
+  **Task B**:
+  - `subagent_type`: `unit-test-generator`
+  - `prompt`: `Run the Unit Test Generator for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+
+- If **FAIL** → stop. Do not launch the next stages.
 
 ---
 
-## Output Format: fix-summary.md
+## Status Definitions
+
+| Status | Meaning |
+|--------|---------|
+| **PASS** | All verification commands returned expected status codes and response bodies |
+| **FAIL** | At least one verification command returned an unexpected result, or a required file was missing |
+| **PARTIAL** | Primary fix works but a regression was detected in another endpoint |
+
+---
+
+## Constraints
+
+- **Read-only on context**: do not edit `implementation-plan.md`, `codebase-research.md`, `verified-research.md`, or any bug-context file.
+- **Plan-exact changes only**: apply the Before → After replacement verbatim; do not reformat, rename, or restructure surrounding code.
+- **No assumed output**: all values in `fix-summary.md` must come from actually running the commands; do not fabricate curl responses.
+- **No npm test**: if `package.json` has no `test` script, do not run `npm test`; use the manual curl commands from the plan instead.
+- **Stop on FAIL**: if Overall Status becomes FAIL at any step, write the summary immediately with the failure documented and stop — do not proceed to further verification commands.
+
+---
+
+## Appendix — Output Format: fix-summary.md
 
 ```markdown
 # Fix Summary: Bug API-404
@@ -133,41 +167,3 @@ Files read:
 Files modified:
 - `<path to each changed file>`
 ```
-
----
-
-### Step 6 — Launch Security Verifier and Unit Test Generator
-
-Check the `Overall Status` you wrote in `fix-summary.md`:
-
-- If **PASS** or **PARTIAL** → launch both agents **in the same message** (in parallel) using the Task tool:
-
-  **Task A**:
-  - `subagent_type`: `security-verifier`
-  - `prompt`: `Run the Security Verifier for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
-
-  **Task B**:
-  - `subagent_type`: `unit-test-generator`
-  - `prompt`: `Run the Unit Test Generator for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
-
-- If **FAIL** → stop. Do not launch the next stages.
-
----
-
-## Status Definitions
-
-| Status | Meaning |
-|--------|---------|
-| **PASS** | All verification commands returned expected status codes and response bodies |
-| **FAIL** | At least one verification command returned an unexpected result, or a required file was missing |
-| **PARTIAL** | Primary fix works but a regression was detected in another endpoint |
-
----
-
-## Constraints
-
-- **Read-only on context**: do not edit `implementation-plan.md`, `codebase-research.md`, `verified-research.md`, or any bug-context file.
-- **Plan-exact changes only**: apply the Before → After replacement verbatim; do not reformat, rename, or restructure surrounding code.
-- **No assumed output**: all values in `fix-summary.md` must come from actually running the commands; do not fabricate curl responses.
-- **No npm test**: if `package.json` has no `test` script, do not run `npm test`; use the manual curl commands from the plan instead.
-- **Stop on FAIL**: if Overall Status becomes FAIL at any step, write the summary immediately with the failure documented and stop — do not proceed to further verification commands.

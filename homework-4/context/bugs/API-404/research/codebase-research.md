@@ -2,24 +2,24 @@
 
 ## Bug Description
 
-`GET /api/users/:id` returns HTTP 404 for every valid user ID (123, 456, 789). The endpoint exists and is correctly registered; the issue is an internal lookup failure — the user is never found even when the requested ID matches a record in the data store.
+`GET /api/users/:id` returns HTTP 404 for every valid user ID. The route is correctly registered and the data exists in memory — the failure is a silent type mismatch in the lookup: the requested ID is never found because it is compared with the wrong type.
 
 ## Code Path
 
 ### 1. Entry Point — `demo-bug-fix/server.js`
 
-- **Line 6**: `const express = require('express');` — Express framework loaded
+- **Line 6**: `const express = require('express');` — Express loaded
 - **Line 7**: `const userRoutes = require('./src/routes/users');` — user router imported
-- **Line 9**: `const app = express();` — Express application created
-- **Line 13**: `app.use(express.json());` — JSON body-parser middleware registered
-- **Line 16**: `app.use(userRoutes);` — user routes mounted on the app (no prefix; routes define their own paths)
+- **Line 9**: `const app = express();` — app instance created
+- **Line 13**: `app.use(express.json());` — JSON body-parsing middleware registered
+- **Line 16**: `app.use(userRoutes);` — user routes mounted (no path prefix; routes define their own paths)
 
-### 2. Route Definitions — `demo-bug-fix/src/routes/users.js`
+### 2. Route Layer — `demo-bug-fix/src/routes/users.js`
 
-- **Line 7**: `const router = express.Router();` — router instance created
+- **Line 7**: `const router = express.Router();` — router created
 - **Line 8**: `const userController = require('../controllers/userController');` — controller imported
-- **Line 11**: `router.get('/api/users', userController.getAllUsers);` — list-all route (works correctly)
-- **Line 14**: `router.get('/api/users/:id', userController.getUserById);` — get-by-ID route; `:id` captures the path segment as a string
+- **Line 11**: `router.get('/api/users', userController.getAllUsers);` — list endpoint (unaffected)
+- **Line 14**: `router.get('/api/users/:id', userController.getUserById);` — single-user endpoint; Express captures `:id` from the URL as a **string**
 
 ### 3. Bug Location — `demo-bug-fix/src/controllers/userController.js`
 
@@ -37,12 +37,12 @@ const users = [
 const userId = req.params.id;
 ```
 
-**Faulty comparison (line 23)**:
+**Strict-equality lookup (line 23)**:
 ```js
 const user = users.find(u => u.id === userId);
 ```
 
-**404 branch (lines 25–27)**:
+**404 branch always reached (lines 25–27)**:
 ```js
 if (!user) {
   return res.status(404).json({ error: 'User not found' });
@@ -51,6 +51,6 @@ if (!user) {
 
 ## Root Cause
 
-`req.params.id` always yields a **string** (e.g. `"123"`). The `users` array stores IDs as **numbers** (e.g. `123`). The strict equality operator `===` never coerces types, so `123 === "123"` is always `false`. `users.find()` therefore always returns `undefined`, the `!user` guard on line 25 is always true, and every request to `GET /api/users/:id` returns 404 regardless of whether the ID exists.
+`req.params.id` is always a **string** (e.g. `"123"`). The `id` fields in the `users` array are **numbers** (e.g. `123`). JavaScript's strict equality operator `===` never coerces types, so `"123" === 123` is always `false`. `Array.prototype.find` therefore always returns `undefined`, the `!user` guard on line 25 is always truthy, and every request returns 404.
 
-The fix is to coerce the parameter to a number before the comparison, e.g. `const userId = Number(req.params.id);` on line 19.
+Fix: coerce before comparison — `const userId = Number(req.params.id);` on line 19.

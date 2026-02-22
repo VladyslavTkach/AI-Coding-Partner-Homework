@@ -10,7 +10,7 @@
 
 **PASS**
 
-All verification commands returned the expected HTTP status codes and response bodies.
+The type-coercion fix was applied and both the primary endpoint and the regression check returned expected results.
 
 ## Manual Verification
 
@@ -28,39 +28,7 @@ Response body:
 {"id":123,"name":"Alice Smith","email":"alice@example.com"}
 ```
 
-Result: PASS — returned HTTP 200 with correct user JSON as expected.
-
----
-
-Additional ID checks:
-
-```bash
-curl -s http://localhost:3000/api/users/456
-# {"id":456,"name":"Bob Johnson","email":"bob@example.com"}
-
-curl -s http://localhost:3000/api/users/789
-# {"id":789,"name":"Charlie Brown","email":"charlie@example.com"}
-```
-
-Both returned HTTP 200 with the correct user objects.
-
----
-
-Not-found case:
-
-Command:
-```bash
-curl -s http://localhost:3000/api/users/999
-```
-
-HTTP status: 404
-
-Response body:
-```json
-{"error":"User not found"}
-```
-
-Result: PASS — unknown ID correctly returns HTTP 404 with expected error body.
+Result: PASS — expected HTTP 200 with Alice Smith's record, received exactly that.
 
 ### Regression check — GET /api/users
 
@@ -76,12 +44,14 @@ Response body:
 [{"id":123,"name":"Alice Smith","email":"alice@example.com"},{"id":456,"name":"Bob Johnson","email":"bob@example.com"},{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}]
 ```
 
-Result: PASS — all 3 users are still returned with numeric IDs unchanged.
+Result: PASS — all 3 users are still returned.
 
 ## References
 
 Files read:
-- `context/bugs/API-404/implementation-plan.md` (retrieved from git history at commit `fcb1f21`)
+- `context/bugs/API-404/implementation-plan.md`
+- `context/bugs/API-404/research/codebase-research.md`
+- `context/bugs/API-404/research/verified-research.md`
 
 Files modified:
-- `demo-bug-fix/src/controllers/userController.js`
+- `/home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4/demo-bug-fix/src/controllers/userController.js`
