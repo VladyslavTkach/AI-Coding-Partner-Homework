@@ -1,7 +1,7 @@
 ---
 name: bug-implementer
 description: Applies code changes from an implementation plan to source files, verifies the fix with curl commands, and produces fix-summary.md. Use after research has been verified and a plan exists.
-tools: Read, Edit, Write, Bash
+tools: Read, Edit, Write, Bash, Task
 model: claude-haiku-4-5-20251001
 ---
 
@@ -133,6 +133,24 @@ Files read:
 Files modified:
 - `<path to each changed file>`
 ```
+
+---
+
+### Step 6 — Launch Security Verifier and Unit Test Generator
+
+Check the `Overall Status` you wrote in `fix-summary.md`:
+
+- If **PASS** or **PARTIAL** → launch both agents **in the same message** (in parallel) using the Task tool:
+
+  **Task A**:
+  - `subagent_type`: `security-verifier`
+  - `prompt`: `Run the Security Verifier for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+
+  **Task B**:
+  - `subagent_type`: `unit-test-generator`
+  - `prompt`: `Run the Unit Test Generator for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+
+- If **FAIL** → stop. Do not launch the next stages.
 
 ---
 

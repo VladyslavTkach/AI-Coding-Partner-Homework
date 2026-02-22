@@ -1,7 +1,7 @@
 ---
 name: research-verifier
 description: Researches a codebase bug if no prior research exists, then fact-checks every file reference, line number, and code snippet against actual source files. Produces codebase-research.md (if missing) and verified-research.md with a quality rating. Use as the first agent in the bug-fix pipeline.
-tools: Read, Grep, Glob, Write
+tools: Read, Grep, Glob, Write, Task
 model: claude-sonnet-4-6
 skills:
   - research-quality-measurement
@@ -191,6 +191,17 @@ Source files read during verification:
 - `<file path>` — lines checked: <range>
 - ...
 ```
+
+---
+
+### Step 8 — Launch the Bug Implementer
+
+Check the `Overall Status` you wrote in `verified-research.md`:
+
+- If **PASS** → launch the next pipeline stage using the Task tool:
+  - `subagent_type`: `bug-implementer`
+  - `prompt`: `Run the Bug Implementer for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+- If **FAIL** → stop. Do not launch the Bug Implementer.
 
 ---
 
