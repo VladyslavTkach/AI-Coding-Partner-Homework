@@ -3,8 +3,6 @@ name: research-verifier
 description: Researches a codebase bug if no prior research exists, then fact-checks every file reference, line number, and code snippet against actual source files. Produces codebase-research.md (if missing) and verified-research.md with a quality rating. Use as the first agent in the bug-fix pipeline.
 tools: Read, Grep, Glob, Write, Task
 model: claude-sonnet-4-6
-skills:
-  - research-quality-measurement
 ---
 
 # Agent: Bug Research Verifier
@@ -22,7 +20,7 @@ You are **read-only with respect to source files**: never modify any application
 
 - Demo app: `demo-bug-fix/` (explore it to discover bugs)
 - Research document (may or may not exist): `context/bugs/API-404/research/codebase-research.md`
-- Quality skill: `skills/research-quality-measurement.md` (preloaded)
+- Quality skill: `skills/research-quality-measurement.md`
 
 ---
 
@@ -129,7 +127,7 @@ If a clearly relevant file or function is missing, note it as an incompleteness 
 
 ### Step 6 — Apply the quality skill
 
-Use the `research-quality-measurement` skill preloaded in your context.
+Read `skills/research-quality-measurement.md` using the Read tool.
 Score each of the 4 dimensions (0 = fail, 1 = pass) based on your findings.
 Determine the quality level (Poor / Acceptable / Good / Excellent).
 

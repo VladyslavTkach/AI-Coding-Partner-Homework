@@ -10,7 +10,7 @@
 
 **PASS**
 
-The type-coercion fix was applied and both the primary endpoint and the regression check returned expected results.
+All four verification commands returned expected HTTP status codes and response bodies.
 
 ## Manual Verification
 
@@ -28,7 +28,48 @@ Response body:
 {"id":123,"name":"Alice Smith","email":"alice@example.com"}
 ```
 
-Result: PASS — expected HTTP 200 with Alice Smith's record, received exactly that.
+Result: PASS — expected HTTP 200 and `{"id":123,"name":"Alice Smith","email":"alice@example.com"}`; received exactly that.
+
+---
+
+### Additional ID checks — GET /api/users/456 and GET /api/users/789
+
+Command:
+```bash
+curl -s http://localhost:3000/api/users/456
+curl -s http://localhost:3000/api/users/789
+```
+
+HTTP status: 200 (both)
+
+Response body:
+```json
+{"id":456,"name":"Bob Johnson","email":"bob@example.com"}
+{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}
+```
+
+Result: PASS — expected and received correct user objects for IDs 456 and 789.
+
+---
+
+### Not-found case — GET /api/users/999
+
+Command:
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/users/999
+curl -s http://localhost:3000/api/users/999
+```
+
+HTTP status: 404
+
+Response body:
+```json
+{"error":"User not found"}
+```
+
+Result: PASS — expected HTTP 404 and `{"error":"User not found"}`; received exactly that.
+
+---
 
 ### Regression check — GET /api/users
 
@@ -44,14 +85,12 @@ Response body:
 [{"id":123,"name":"Alice Smith","email":"alice@example.com"},{"id":456,"name":"Bob Johnson","email":"bob@example.com"},{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}]
 ```
 
-Result: PASS — all 3 users are still returned.
+Result: PASS — all 3 users are still returned with numeric IDs unchanged.
 
 ## References
 
 Files read:
 - `context/bugs/API-404/implementation-plan.md`
-- `context/bugs/API-404/research/codebase-research.md`
-- `context/bugs/API-404/research/verified-research.md`
 
 Files modified:
-- `/home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4/demo-bug-fix/src/controllers/userController.js`
+- `demo-bug-fix/src/controllers/userController.js`

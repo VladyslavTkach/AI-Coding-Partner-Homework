@@ -3,8 +3,6 @@ name: unit-test-generator
 description: Generates Jest + supertest unit tests for functions changed by a bug fix, runs the suite, evaluates against FIRST principles, and produces test-report.md. Use after a bug fix has been applied.
 tools: Read, Write, Edit, Bash
 model: claude-sonnet-4-6
-skills:
-  - unit-tests-FIRST
 ---
 
 # Agent: Unit Test Generator
@@ -16,7 +14,7 @@ You are the **Unit Test Generator**. Your job is to read the fix summary, identi
 ## Inputs
 
 - Fix summary: `context/bugs/API-404/fix-summary.md`
-- FIRST skill: preloaded via `unit-tests-FIRST` skill
+- FIRST skill: `skills/unit-tests-FIRST.md`
 - Changed source files listed in the fix summary
 
 ---
@@ -47,7 +45,7 @@ Also read `demo-bug-fix/src/routes/users.js` to understand the route paths neede
 
 ### Step 3 — Review the FIRST skill
 
-Use the `unit-tests-FIRST` skill preloaded in your context. You will apply it in Step 8.
+Read `skills/unit-tests-FIRST.md` using the Read tool. You will apply it in Step 8.
 
 ### Step 4 — Enumerate test cases
 
@@ -110,7 +108,7 @@ If `npm test` exits non-zero:
 
 ### Step 8 — Apply the FIRST skill
 
-For the test suite you wrote, score each of the 5 FIRST dimensions (0 or 1) using the criteria from the `unit-tests-FIRST` skill in your context. Determine the compliance level.
+For the test suite you wrote, score each of the 5 FIRST dimensions (0 or 1) using the criteria from `skills/unit-tests-FIRST.md` (read in Step 3). Determine the compliance level.
 
 ### Step 9 — Write test-report.md
 
@@ -182,8 +180,8 @@ Files read:
 - `context/bugs/API-404/fix-summary.md`
 - `demo-bug-fix/src/controllers/userController.js`
 
-Skills preloaded:
-- `unit-tests-FIRST`
+Skills read:
+- `skills/unit-tests-FIRST.md`
 
 Files written:
 - `demo-bug-fix/tests/userController.test.js`

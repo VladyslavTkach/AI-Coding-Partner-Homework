@@ -9,10 +9,10 @@
 ## Test Scope
 
 Functions tested:
-- `getUserById` in `demo-bug-fix/src/controllers/userController.js:18` — reason: changed by fix API-404 (line 19 changed from `const userId = req.params.id` to `const userId = Number(req.params.id)`)
+- `getUserById` in `demo-bug-fix/src/controllers/userController.js:18` — reason: changed by fix API-404 (line 19: `req.params.id` wrapped in `Number()`)
 
 Functions excluded:
-- `getAllUsers` — reason: not modified by this fix; logic on lines 36-38 was untouched
+- `getAllUsers` — reason: not modified by this fix
 
 ---
 
@@ -20,12 +20,12 @@ Functions excluded:
 
 | Test ID | Description | Input | Expected | Actual | Result |
 |---------|-------------|-------|----------|--------|--------|
-| TC-01 | Happy path — existing ID 123 returns correct user | GET /api/users/123 | HTTP 200, `{"id":123,"name":"Alice Smith","email":"alice@example.com"}` | HTTP 200, `{"id":123,"name":"Alice Smith","email":"alice@example.com"}` | PASS |
-| TC-02 | Happy path — existing ID 456 returns correct user | GET /api/users/456 | HTTP 200, `{"id":456,"name":"Bob Johnson","email":"bob@example.com"}` | HTTP 200, `{"id":456,"name":"Bob Johnson","email":"bob@example.com"}` | PASS |
-| TC-03 | Happy path — existing ID 789 returns correct user | GET /api/users/789 | HTTP 200, `{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}` | HTTP 200, `{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}` | PASS |
-| TC-04 | Error path — non-existent numeric ID returns 404 | GET /api/users/999 | HTTP 404, `{"error":"User not found"}` | HTTP 404, `{"error":"User not found"}` | PASS |
-| TC-05 | Edge case — non-numeric segment (NaN after Number()) returns 404 | GET /api/users/abc | HTTP 404, `{"error":"User not found"}` | HTTP 404, `{"error":"User not found"}` | PASS |
-| TC-06 | Edge case — ID 0 (not in dataset) returns 404 | GET /api/users/0 | HTTP 404, `{"error":"User not found"}` | HTTP 404, `{"error":"User not found"}` | PASS |
+| TC-01 | Happy path — first valid user ID | GET /api/users/123 | 200 `{"id":123,"name":"Alice Smith","email":"alice@example.com"}` | 200 `{"id":123,"name":"Alice Smith","email":"alice@example.com"}` | PASS |
+| TC-02 | Happy path — second valid user ID | GET /api/users/456 | 200 `{"id":456,"name":"Bob Johnson","email":"bob@example.com"}` | 200 `{"id":456,"name":"Bob Johnson","email":"bob@example.com"}` | PASS |
+| TC-03 | Happy path — third valid user ID | GET /api/users/789 | 200 `{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}` | 200 `{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}` | PASS |
+| TC-04 | Error path — ID not in dataset | GET /api/users/999 | 404 `{"error":"User not found"}` | 404 `{"error":"User not found"}` | PASS |
+| TC-05 | Regression — string param coerced to number | GET /api/users/123 | 200, body.id === 123, typeof body.id === "number" | 200, id=123, type=number | PASS |
+| TC-06 | Edge case — non-numeric string ID (NaN) | GET /api/users/abc | 404 `{"error":"User not found"}` | 404 `{"error":"User not found"}` | PASS |
 
 ---
 
@@ -42,11 +42,11 @@ Criteria met: 5/5
 ```
 
 **Reasoning**:
-- [F] Fast: All 6 tests completed in 0.489 s total (individual tests ranged from 2 ms to 28 ms). The app uses an in-memory array for user data — no real database queries, no real network calls, and no disk I/O occur during the test run.
-- [I] Independent: Each test issues its own independent HTTP request through supertest and reads from a module-level constant that is never mutated. Tests can be run in any order or in isolation with identical results.
-- [R] Repeatable: The in-memory `users` array is a constant defined at module load time and is never written to. Every run in every environment produces the same HTTP responses. No external services, clocks, or random values are involved.
-- [S] Self-validating: Every test contains programmatic `expect(res.status).toBe(...)` and `expect(res.body).toEqual(...)` assertions. Jest reports an unambiguous PASS or FAIL for each test with no manual inspection required.
-- [T] Timely: Tests are scoped exclusively to `getUserById`, the one function modified by fix API-404. `getAllUsers` was not changed and is not tested here.
+- [F] Fast: All 6 tests use supertest against an in-memory Express app with hardcoded in-memory user data. No real network calls, disk I/O, or database queries. Execution times range from 3ms to 67ms.
+- [I] Independent: Each test issues its own isolated HTTP request. There is no shared mutable state between tests, no `beforeAll`/`afterAll` lifecycle hooks, and no dependency on execution order.
+- [R] Repeatable: The data source is an in-memory array hardcoded in the controller module. There are no external services, clocks, or random values; results are identical on every run in every environment.
+- [S] Self-validating: Every test has one or more `expect()` assertions that produce an unambiguous pass/fail signal without any manual inspection of output.
+- [T] Timely: Tests are scoped exclusively to `getUserById`, the single function changed by fix API-404. The unchanged `getAllUsers` function is explicitly excluded from the test suite.
 
 ---
 
@@ -57,18 +57,18 @@ Criteria met: 5/5
 > jest
 
 PASS tests/userController.test.js
-  GET /api/users/:id — getUserById
-    ✓ TC-01: returns 200 and user object for existing ID 123 (28 ms)
-    ✓ TC-02: returns 200 and user object for existing ID 456 (7 ms)
-    ✓ TC-03: returns 200 and user object for existing ID 789 (3 ms)
-    ✓ TC-04: returns 404 and error body for non-existent ID 999 (3 ms)
-    ✓ TC-05: returns 404 for non-numeric segment (NaN after Number()) (2 ms)
-    ✓ TC-06: returns 404 for ID 0 (not present in the dataset) (2 ms)
+  getUserById
+    ✓ TC-01: returns 200 and Alice Smith for ID 123 (67 ms)
+    ✓ TC-02: returns 200 and Bob Johnson for ID 456 (10 ms)
+    ✓ TC-03: returns 200 and Charlie Brown for ID 789 (13 ms)
+    ✓ TC-04: returns 404 and error message for non-existent ID 999 (8 ms)
+    ✓ TC-05: returns 200 when ID is passed as string "123" (regression for type mismatch bug) (3 ms)
+    ✓ TC-06: returns 404 for a non-numeric string ID "abc" (3 ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       6 passed, 6 total
 Snapshots:   0 total
-Time:        0.489 s, estimated 1 s
+Time:        0.691 s, estimated 1 s
 Ran all test suites.
 ```
 
@@ -78,7 +78,7 @@ Ran all test suites.
 
 **PASS**
 
-All 6 tests covering `getUserById` passed; the `Number()` coercion fix correctly resolves the strict-equality type mismatch for valid IDs and gracefully handles non-existent and non-numeric inputs.
+All 6 tests passed, covering all meaningful branches of the `getUserById` function changed by fix API-404.
 
 ---
 
