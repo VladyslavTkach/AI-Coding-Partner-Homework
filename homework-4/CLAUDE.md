@@ -17,10 +17,10 @@ homework-4/
 ├── HOWTORUN.md                      # How to run the pipeline and app
 ├── STUDENT.md                       # Student info
 ├── agents/                          # Agent definition files
-│   ├── research-verifier.agent.md
-│   ├── bug-implementer.agent.md
-│   ├── security-verifier.agent.md
-│   └── unit-test-generator.agent.md
+│   ├── research-verifier.agent.md   # Entry point — chains to bug-implementer
+│   ├── bug-implementer.agent.md     # Chains to security-verifier + unit-test-generator
+│   ├── security-verifier.agent.md   # Terminal
+│   └── unit-test-generator.agent.md # Terminal
 ├── skills/                          # Reusable skill definitions
 │   ├── research-quality-measurement.md
 │   └── unit-tests-FIRST.md
@@ -45,10 +45,13 @@ homework-4/
 
 ## Agent Pipeline Run Order
 
+Invoke `research-verifier` once — it chains to all subsequent agents automatically:
+
 ```
-Bug Researcher → Bug Research Verifier → Bug Planner → Bug Implementer
-                                                              ↓
-                                              Security Verifier  +  Unit Test Generator
+research-verifier
+  → (PASS) bug-implementer
+              → (PASS/PARTIAL) security-verifier   ─┐ parallel
+              → (PASS/PARTIAL) unit-test-generator ─┘
 ```
 
 ## Demo App
@@ -75,14 +78,14 @@ npm test
 
 ## Agents
 
-Each `.agent.md` file in `agents/` is a Claude Code sub-agent definition (markdown system prompt). Invoke them via the Claude Code Task tool or as custom slash commands.
+Each `.agent.md` file in `agents/` is a Claude Code sub-agent definition (markdown system prompt). Invoke `research-verifier` to start the full pipeline; it chains to each subsequent agent automatically.
 
-| Agent file | Input | Output |
-|---|---|---|
-| `research-verifier.agent.md` | `research/codebase-research.md` | `research/verified-research.md` |
-| `bug-implementer.agent.md` | `implementation-plan.md` | `fix-summary.md` + code changes |
-| `security-verifier.agent.md` | `fix-summary.md` + changed files | `security-report.md` |
-| `unit-test-generator.agent.md` | `fix-summary.md` + changed files | `test-report.md` + test files |
+| Agent file | Input | Output | Chains to |
+|---|---|---|---|
+| `research-verifier.agent.md` | `demo-bug-fix/` source; `research/codebase-research.md` (created if missing) | `research/verified-research.md` | `bug-implementer` on PASS |
+| `bug-implementer.agent.md` | `implementation-plan.md` | `fix-summary.md` + code changes | `security-verifier` + `unit-test-generator` on PASS/PARTIAL |
+| `security-verifier.agent.md` | `fix-summary.md` + changed files | `security-report.md` | — |
+| `unit-test-generator.agent.md` | `fix-summary.md` + changed files | `test-report.md` + test files | — |
 
 ## Skills
 

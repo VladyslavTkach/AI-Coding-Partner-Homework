@@ -12,23 +12,19 @@
 Open a Claude Code session from the repo root and paste:
 
 ```
-Act as the agent defined in homework-4/agents/pipeline-orchestrator.agent.md. Run it now.
+Act as the agent defined in homework-4/agents/research-verifier.agent.md. Run it now.
 ```
 
-The orchestrator runs all four agents in order, gate-checks every output, and prints a final status board:
+The Research Verifier starts the chain automatically:
 
 ```
-╔══════════════════════════════════════════╗
-║         PIPELINE RUN COMPLETE            ║
-╠══════════════════════════════════════════╣
-║ Stage 1 — Research Verifier  : PASS/FAIL ║
-║ Stage 2 — Bug Implementer    : PASS/FAIL ║
-║ Stage 3 — Security Verifier  : PASS/FAIL ║
-║ Stage 4 — Unit Test Generator: PASS/FAIL ║
-╠══════════════════════════════════════════╣
-║ Overall                      : PASS/FAIL ║
-╚══════════════════════════════════════════╝
+research-verifier
+  → (PASS) bug-implementer
+              → (PASS) security-verifier   ─┐ parallel
+              → (PASS) unit-test-generator ─┘
 ```
+
+Each agent gate-checks its own output before launching the next stage. If any stage fails, the chain stops and the failure is documented in that stage's output artifact.
 
 Artifacts are written to `context/bugs/<BUG-ID>/`:
 

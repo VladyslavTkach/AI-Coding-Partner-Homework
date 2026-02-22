@@ -13,31 +13,24 @@ flowchart TD
     D -->|test-report.md| E
 ```
 
-| Agent | What it does |
-|-------|-------------|
-| **Research Verifier** | Fact-checks every file path, line number, and code snippet in the research doc; rates overall quality |
-| **Bug Implementer** | Applies the fix from the implementation plan; records a before/after diff |
-| **Security Verifier** | Scans the changed code across 9 security categories with severity ratings |
-| **Unit Test Generator** | Writes and runs unit tests; validates them against FIRST principles |
+| Agent | What it does | Chains to |
+|-------|-------------|-----------|
+| **Research Verifier** | Researches the codebase (if needed), then fact-checks every file path, line number, and code snippet; rates overall quality | → Bug Implementer |
+| **Bug Implementer** | Applies the fix from the implementation plan; verifies with curl; records a before/after diff | → Security Verifier + Unit Test Generator (parallel) |
+| **Security Verifier** | Scans the changed code across 9 security categories with severity ratings | — |
+| **Unit Test Generator** | Writes and runs unit tests; validates them against FIRST principles | — |
 
-Stages 3 and 4 run in parallel. The **Orchestrator** (`agents/pipeline-orchestrator.agent.md`) coordinates everything and prints a final pass/fail status board.
+Each agent automatically launches the next stage on success — no orchestrator needed.
 
 ## Running
 
 **One command** — paste this into a Claude Code session:
 
 ```
-Act as the agent defined in homework-4/agents/pipeline-orchestrator.agent.md. Run it now.
+Act as the agent defined in homework-4/agents/research-verifier.agent.md. Run it now.
 ```
 
-**Or run agents manually**, in order:
-
-```
-1. Act as agents/research-verifier.agent.md. Run it.
-2. Act as agents/bug-implementer.agent.md. Run it.
-3. Act as agents/security-verifier.agent.md. Run it.     ← parallel
-4. Act as agents/unit-test-generator.agent.md. Run it.   ← parallel
-```
+The Research Verifier will chain to the Bug Implementer on PASS, which will then launch the Security Verifier and Unit Test Generator in parallel.
 
 > The pipeline expects the code to be in its **buggy state** when it starts.
 
