@@ -10,7 +10,7 @@
 
 **PASS**
 
-The `Number()` coercion at line 19 converts the string param to a number, so the strict equality comparison at line 23 now correctly matches numeric user IDs.
+The type-coercion fix was applied and all verification commands returned the expected HTTP status codes and response bodies.
 
 ## Manual Verification
 
@@ -19,6 +19,7 @@ The `Number()` coercion at line 19 converts the string param to a number, so the
 Command:
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/users/123
+curl -s http://localhost:3000/api/users/123
 ```
 
 HTTP status: 200
@@ -28,42 +29,31 @@ Response body:
 {"id":123,"name":"Alice Smith","email":"alice@example.com"}
 ```
 
-Result: PASS — expected HTTP 200 and `{"id":123,"name":"Alice Smith","email":"alice@example.com"}`, received both exactly.
+Result: PASS — expected HTTP 200 with `{"id":123,"name":"Alice Smith","email":"alice@example.com"}`, received exact match.
 
-### Additional ID checks
+### Additional ID checks — GET /api/users/456 and GET /api/users/789
 
 Command:
 ```bash
 curl -s http://localhost:3000/api/users/456
-```
-
-HTTP status: 200
-
-Response body:
-```json
-{"id":456,"name":"Bob Johnson","email":"bob@example.com"}
-```
-
-Result: PASS
-
-Command:
-```bash
 curl -s http://localhost:3000/api/users/789
 ```
 
-HTTP status: 200
+HTTP status: 200 (both)
 
-Response body:
+Response bodies:
 ```json
+{"id":456,"name":"Bob Johnson","email":"bob@example.com"}
 {"id":789,"name":"Charlie Brown","email":"charlie@example.com"}
 ```
 
-Result: PASS
+Result: PASS — both IDs resolved correctly.
 
-### Not-found case (unchanged behavior)
+### Not-found case — GET /api/users/999
 
 Command:
 ```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/users/999
 curl -s http://localhost:3000/api/users/999
 ```
 
@@ -74,12 +64,13 @@ Response body:
 {"error":"User not found"}
 ```
 
-Result: PASS — unknown ID correctly returns 404 with expected error body.
+Result: PASS — non-existent ID still returns 404 as expected.
 
 ### Regression check — GET /api/users
 
 Command:
 ```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/users
 curl -s http://localhost:3000/api/users
 ```
 
@@ -90,12 +81,14 @@ Response body:
 [{"id":123,"name":"Alice Smith","email":"alice@example.com"},{"id":456,"name":"Bob Johnson","email":"bob@example.com"},{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}]
 ```
 
-Result: PASS — all 3 users are still returned with no change to the list endpoint.
+Result: PASS — all 3 users are still returned with no regression.
 
 ## References
 
 Files read:
-- `context/bugs/API-404/implementation-plan.md`
+- `context/bugs/API-404/implementation-plan.md` (retrieved from git history commit f22c8ff; file was absent from working tree)
+- `context/bugs/API-404/research/codebase-research.md`
+- `context/bugs/API-404/research/verified-research.md`
 
 Files modified:
 - `demo-bug-fix/src/controllers/userController.js`
