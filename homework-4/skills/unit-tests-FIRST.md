@@ -1,3 +1,9 @@
+---
+name: unit-tests-first
+description: Evaluates whether a set of unit tests meets the FIRST principles (Fast, Independent, Repeatable, Self-validating, Timely). Use when reviewing or generating unit tests.
+user-invocable: false
+---
+
 # Skill: Unit Tests FIRST
 
 Use this skill to evaluate whether a set of unit tests meets the FIRST principles.

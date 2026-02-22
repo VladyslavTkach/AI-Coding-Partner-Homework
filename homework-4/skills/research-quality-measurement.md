@@ -1,3 +1,9 @@
+---
+name: research-quality-measurement
+description: Evaluates codebase research quality across 4 dimensions (file reference accuracy, line number accuracy, snippet accuracy, completeness). Use when asked to rate or verify research quality before planning a bug fix.
+user-invocable: false
+---
+
 # Skill: Research Quality Measurement
 
 Use this skill to rate the quality of a codebase research document.
