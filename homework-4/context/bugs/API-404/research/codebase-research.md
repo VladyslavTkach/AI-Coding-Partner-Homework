@@ -2,24 +2,24 @@
 
 ## Bug Description
 
-`GET /api/users/:id` returns HTTP 404 with `{"error": "User not found"}` for every valid user ID (e.g., `123`, `456`, `789`), even though those IDs exist in the in-memory `users` array. `GET /api/users` (list all) continues to work correctly.
+`GET /api/users/:id` returns HTTP 404 for every valid user ID (123, 456, 789). The endpoint exists and is correctly registered; the issue is an internal lookup failure — the user is never found even when the requested ID matches a record in the data store.
 
 ## Code Path
 
 ### 1. Entry Point — `demo-bug-fix/server.js`
 
-- **Line 6**: `const express = require('express');` — loads Express framework
-- **Line 7**: `const userRoutes = require('./src/routes/users');` — loads user routes module
-- **Line 9**: `const app = express();` — creates the Express application
-- **Line 13**: `app.use(express.json());` — registers JSON body-parsing middleware
-- **Line 16**: `app.use(userRoutes);` — mounts all user routes on the root path
+- **Line 6**: `const express = require('express');` — Express framework loaded
+- **Line 7**: `const userRoutes = require('./src/routes/users');` — user router imported
+- **Line 9**: `const app = express();` — Express application created
+- **Line 13**: `app.use(express.json());` — JSON body-parser middleware registered
+- **Line 16**: `app.use(userRoutes);` — user routes mounted on the app (no prefix; routes define their own paths)
 
 ### 2. Route Definitions — `demo-bug-fix/src/routes/users.js`
 
-- **Line 7**: `const router = express.Router();` — creates a dedicated router instance
-- **Line 8**: `const userController = require('../controllers/userController');` — imports the controller
-- **Line 11**: `router.get('/api/users', userController.getAllUsers);` — binds GET /api/users to getAllUsers handler
-- **Line 14**: `router.get('/api/users/:id', userController.getUserById);` — binds GET /api/users/:id to getUserById handler; `:id` is captured as a route parameter
+- **Line 7**: `const router = express.Router();` — router instance created
+- **Line 8**: `const userController = require('../controllers/userController');` — controller imported
+- **Line 11**: `router.get('/api/users', userController.getAllUsers);` — list-all route (works correctly)
+- **Line 14**: `router.get('/api/users/:id', userController.getUserById);` — get-by-ID route; `:id` captures the path segment as a string
 
 ### 3. Bug Location — `demo-bug-fix/src/controllers/userController.js`
 
@@ -32,21 +32,9 @@ const users = [
 ];
 ```
 
-**getUserById handler (lines 18–30)**:
+**Faulty parameter capture (line 19)**:
 ```js
-async function getUserById(req, res) {
-  const userId = req.params.id;
-
-  // BUG: req.params.id returns a string, but users array uses numeric IDs
-  // Strict equality (===) comparison will always fail: "123" !== 123
-  const user = users.find(u => u.id === userId);
-
-  if (!user) {
-    return res.status(404).json({ error: 'User not found' });
-  }
-
-  res.json(user);
-}
+const userId = req.params.id;
 ```
 
 **Faulty comparison (line 23)**:
@@ -54,14 +42,15 @@ async function getUserById(req, res) {
 const user = users.find(u => u.id === userId);
 ```
 
-## Root Cause
-
-Express route parameters are always delivered as strings. When a request arrives for `GET /api/users/123`, `req.params.id` is the string `"123"`. The `users` array stores IDs as JavaScript numbers (e.g., `123`). The strict equality operator `===` does not perform type coercion, so `123 === "123"` evaluates to `false`. `Array.prototype.find` therefore never finds a match and returns `undefined`, causing the handler to fall through to the 404 branch on every request — regardless of whether the ID exists in the array.
-
-The fix is to convert `req.params.id` to a number before the comparison, for example:
-
+**404 branch (lines 25–27)**:
 ```js
-const userId = Number(req.params.id);
+if (!user) {
+  return res.status(404).json({ error: 'User not found' });
+}
 ```
 
-This makes `userId` a `number` so that `123 === 123` evaluates to `true` and the correct user is returned.
+## Root Cause
+
+`req.params.id` always yields a **string** (e.g. `"123"`). The `users` array stores IDs as **numbers** (e.g. `123`). The strict equality operator `===` never coerces types, so `123 === "123"` is always `false`. `users.find()` therefore always returns `undefined`, the `!user` guard on line 25 is always true, and every request to `GET /api/users/:id` returns 404 regardless of whether the ID exists.
+
+The fix is to coerce the parameter to a number before the comparison, e.g. `const userId = Number(req.params.id);` on line 19.

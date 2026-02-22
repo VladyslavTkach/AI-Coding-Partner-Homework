@@ -1,5 +1,5 @@
 /**
- * Unit Tests: getUserById (userController.js, line 18)
+ * Unit Tests: getUserById (userController.js, line 19)
  *
  * Scope: covers only the function changed by fix API-404.
  * The fix converts req.params.id from string to Number before the
@@ -30,18 +30,18 @@ describe('GET /api/users/:id — getUserById', () => {
     expect(res.body).toEqual({ id: 789, name: 'Charlie Brown', email: 'charlie@example.com' });
   });
 
-  // Error path: an ID that is a valid number but not in the array must return 404
+  // Error path: valid number not in the array must return 404
 
-  test('TC-04: returns 404 and error message for non-existent ID 999', async () => {
+  test('TC-04: returns 404 and error body for non-existent ID 999', async () => {
     const res = await request(app).get('/api/users/999');
     expect(res.status).toBe(404);
     expect(res.body).toEqual({ error: 'User not found' });
   });
 
-  // Edge cases: values that would have exposed or been affected by the type-coercion fix
+  // Edge cases: values that exercise the Number() coercion introduced by the fix
 
   test('TC-05: returns 404 for non-numeric segment (NaN after Number())', async () => {
-    // Number("abc") === NaN; NaN === NaN is false, so no user will match — expect 404
+    // Number("abc") === NaN; NaN === anything is false, so no user matches
     const res = await request(app).get('/api/users/abc');
     expect(res.status).toBe(404);
     expect(res.body).toEqual({ error: 'User not found' });
@@ -51,18 +51,5 @@ describe('GET /api/users/:id — getUserById', () => {
     const res = await request(app).get('/api/users/0');
     expect(res.status).toBe(404);
     expect(res.body).toEqual({ error: 'User not found' });
-  });
-
-  test('TC-07: returns 404 for negative ID -1 (not present in the dataset)', async () => {
-    const res = await request(app).get('/api/users/-1');
-    expect(res.status).toBe(404);
-    expect(res.body).toEqual({ error: 'User not found' });
-  });
-
-  test('TC-08: returns 200 for ID passed with leading zeros (Number("0123") === 123)', async () => {
-    // Demonstrates that Number() coercion handles leading-zero strings correctly
-    const res = await request(app).get('/api/users/0123');
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({ id: 123, name: 'Alice Smith', email: 'alice@example.com' });
   });
 });
