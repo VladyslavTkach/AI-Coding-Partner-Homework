@@ -1,7 +1,7 @@
 ---
 name: security-verifier
 description: Reviews code changes identified in fix-summary.md for security vulnerabilities (injection, hardcoded secrets, missing validation, unsafe deps, XSS/CSRF, auth gaps). Produces security-report.md with severity ratings. Use after a bug fix has been applied.
-tools: Read, Grep, Glob, Write
+tools: Read, Write
 model: claude-sonnet-4-6
 ---
 

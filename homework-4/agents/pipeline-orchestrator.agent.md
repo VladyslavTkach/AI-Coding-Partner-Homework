@@ -31,30 +31,11 @@ You do not implement, verify, or test anything yourself — you delegate every s
 
 ## Step-by-Step Process
 
-### Step 0 — Read sub-agent definitions and skills
-
-Read all six files **in parallel** before launching any Task:
-
-- `agents/research-verifier.agent.md`
-- `agents/bug-implementer.agent.md`
-- `agents/security-verifier.agent.md`
-- `agents/unit-test-generator.agent.md`
-- `skills/research-quality-measurement.md`
-- `skills/unit-tests-FIRST.md`
-
-You will embed these as prompts for each sub-agent. All sub-agent prompts must end with:
-
-```
----
-Working directory (resolve all relative paths from here):
-/Users/v.tkach/Projects/ai-training/AI-Coding-Partner-Homework/homework-4
-```
-
 ### Step 1 — Run the Bug Research Verifier
 
 Launch a Task with:
-- `subagent_type`: `general-purpose`
-- `prompt`: the full content of `agents/research-verifier.agent.md` (including YAML front matter is fine), then append the full content of `skills/research-quality-measurement.md` under the heading `## Skill: Research Quality Measurement (preloaded)`, then append the working directory line from Step 0.
+- `subagent_type`: `research-verifier`
+- `prompt`: `Run the Bug Research Verifier for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
 
 Wait for it to complete.
 
@@ -66,8 +47,8 @@ Wait for it to complete.
 ### Step 2 — Run the Bug Implementer
 
 Launch a Task with:
-- `subagent_type`: `general-purpose`
-- `prompt`: the full content of `agents/bug-implementer.agent.md`, then append the working directory line from Step 0.
+- `subagent_type`: `bug-implementer`
+- `prompt`: `Run the Bug Implementer for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
 
 Wait for it to complete.
 
@@ -91,12 +72,12 @@ Run this with the Bash tool.
 Launch **two Tasks in the same message** (do not wait for one before launching the other):
 
 **Task A**:
-- `subagent_type`: `general-purpose`
-- `prompt`: the full content of `agents/security-verifier.agent.md`, then append the working directory line from Step 0.
+- `subagent_type`: `security-verifier`
+- `prompt`: `Run the Security Verifier for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
 
 **Task B**:
-- `subagent_type`: `general-purpose`
-- `prompt`: the full content of `agents/unit-test-generator.agent.md`, then append the full content of `skills/unit-tests-FIRST.md` under the heading `## Skill: Unit Tests FIRST (preloaded)`, then append the working directory line from Step 0.
+- `subagent_type`: `unit-test-generator`
+- `prompt`: `Run the Unit Test Generator for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
 
 Wait for both to complete.
 
