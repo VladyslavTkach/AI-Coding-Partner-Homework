@@ -196,10 +196,28 @@ Source files read during verification:
 
 Check the `Overall Status` you wrote in `verified-research.md`:
 
-- If **PASS** → launch the next pipeline stage using the Task tool:
+- If **PASS** → launch the Bug Implementer using the Task tool and **wait for it to complete** (do not use `run_in_background`):
   - `subagent_type`: `bug-implementer`
   - `prompt`: `Run the Bug Implementer for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
-- If **FAIL** → stop. Do not launch the Bug Implementer.
+- If **FAIL** → stop. Do not proceed further.
+
+---
+
+### Step 9 — Launch Security Verifier and Unit Test Generator
+
+After the Bug Implementer completes, read `context/bugs/API-404/fix-summary.md` and check its `Overall Status`:
+
+- If **PASS** or **PARTIAL** → invoke the Task tool **twice in the same message** (both calls in one response, so they run in parallel):
+
+  **First Task tool call:**
+  - `subagent_type`: `security-verifier`
+  - `prompt`: `Run the Security Verifier for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+
+  **Second Task tool call (same message as the first):**
+  - `subagent_type`: `unit-test-generator`
+  - `prompt`: `Run the Unit Test Generator for bug API-404. Working directory (resolve all relative paths from here): /home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-4`
+
+- If **FAIL** → stop. Do not launch the next stages.
 
 ---
 

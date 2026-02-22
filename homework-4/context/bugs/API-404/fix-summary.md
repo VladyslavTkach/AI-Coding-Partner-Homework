@@ -10,7 +10,7 @@
 
 **PASS**
 
-All four verification commands returned expected HTTP status codes and response bodies.
+All verification commands returned expected HTTP status codes and response bodies; no regressions detected.
 
 ## Manual Verification
 
@@ -28,31 +28,45 @@ Response body:
 {"id":123,"name":"Alice Smith","email":"alice@example.com"}
 ```
 
-Result: PASS — expected HTTP 200 and `{"id":123,"name":"Alice Smith","email":"alice@example.com"}`; received exactly that.
+Result: PASS — expected HTTP 200 and Alice Smith's record; both matched exactly.
 
 ---
 
-### Additional ID checks — GET /api/users/456 and GET /api/users/789
+### Additional ID checks
 
 Command:
 ```bash
 curl -s http://localhost:3000/api/users/456
-curl -s http://localhost:3000/api/users/789
 ```
 
-HTTP status: 200 (both)
+HTTP status: 200
 
 Response body:
 ```json
 {"id":456,"name":"Bob Johnson","email":"bob@example.com"}
-{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}
 ```
 
-Result: PASS — expected and received correct user objects for IDs 456 and 789.
+Result: PASS — expected Bob Johnson's record; matched exactly.
 
 ---
 
-### Not-found case — GET /api/users/999
+Command:
+```bash
+curl -s http://localhost:3000/api/users/789
+```
+
+HTTP status: 200
+
+Response body:
+```json
+{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}
+```
+
+Result: PASS — expected Charlie Brown's record; matched exactly.
+
+---
+
+### Not-found case (unchanged behavior)
 
 Command:
 ```bash
@@ -67,7 +81,7 @@ Response body:
 {"error":"User not found"}
 ```
 
-Result: PASS — expected HTTP 404 and `{"error":"User not found"}`; received exactly that.
+Result: PASS — expected HTTP 404 and `{"error":"User not found"}`; both matched exactly.
 
 ---
 
@@ -85,7 +99,7 @@ Response body:
 [{"id":123,"name":"Alice Smith","email":"alice@example.com"},{"id":456,"name":"Bob Johnson","email":"bob@example.com"},{"id":789,"name":"Charlie Brown","email":"charlie@example.com"}]
 ```
 
-Result: PASS — all 3 users are still returned with numeric IDs unchanged.
+Result: PASS — all 3 users returned with numeric IDs, no regression detected.
 
 ## References
 
