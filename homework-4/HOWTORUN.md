@@ -17,11 +17,11 @@ Act as the agent defined in homework-4/agents/research-verifier.agent.md. Run it
 
 The Research Verifier starts the chain automatically:
 
-```
-research-verifier
-  → (PASS) bug-implementer
-              → (PASS) security-verifier   ─┐ parallel
-              → (PASS) unit-test-generator ─┘
+```mermaid
+flowchart TD
+    A([research-verifier]) -->|PASS| B([bug-implementer])
+    B -->|PASS / PARTIAL| C([security-verifier])
+    B -->|PASS / PARTIAL| D([unit-test-generator])
 ```
 
 Each agent gate-checks its own output before launching the next stage. If any stage fails, the chain stops and the failure is documented in that stage's output artifact.
