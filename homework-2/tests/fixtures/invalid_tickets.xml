@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>CUST001</customer_id>
+    <customer_email>invalid-email</customer_email>
+    <customer_name>John Doe</customer_name>
+    <subject>Test</subject>
+    <description>Short</description>
+    <category>account_access</category>
+    <priority>high</priority>
+  </ticket>
+  <ticket>
+    <customer_email>valid@example.com</customer_email>
+    <customer_name>Jane Smith</customer_name>
+    <subject></subject>
+    <description>This is a valid description with enough characters</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+  </ticket>
+  <ticket>
+    <customer_id>CUST003</customer_id>
+    <customer_email>bob@example.com</customer_email>
+    <customer_name>Bob Wilson</customer_name>
+    <subject>Valid subject</subject>
+    <description>Too short</description>
+    <category>invalid_category</category>
+    <priority>urgent</priority>
+  </ticket>
+</tickets>
