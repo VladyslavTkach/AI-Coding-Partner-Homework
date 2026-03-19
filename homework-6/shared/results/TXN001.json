@@ -1,0 +1,39 @@
+{
+  "transaction": {
+    "transaction_id": "TXN001",
+    "timestamp": "2026-03-16T09:00:00Z",
+    "source_account": "ACC-1001",
+    "destination_account": "ACC-2001",
+    "amount": "1500.00",
+    "currency": "USD",
+    "transaction_type": "transfer",
+    "description": "Monthly rent payment",
+    "metadata": {
+      "channel": "online",
+      "country": "US"
+    }
+  },
+  "status": "settled",
+  "agent_log": [
+    {
+      "timestamp": "2026-03-19T17:21:49.845Z",
+      "agentName": "TransactionValidator",
+      "transactionId": "TXN001",
+      "outcome": "validated"
+    },
+    {
+      "timestamp": "2026-03-19T17:21:49.845Z",
+      "agentName": "FraudDetector",
+      "transactionId": "TXN001",
+      "outcome": "scored: LOW (1)"
+    },
+    {
+      "timestamp": "2026-03-19T17:21:49.846Z",
+      "agentName": "SettlementProcessor",
+      "transactionId": "TXN001",
+      "outcome": "settled"
+    }
+  ],
+  "fraud_risk_score": 1,
+  "fraud_risk": "LOW"
+}

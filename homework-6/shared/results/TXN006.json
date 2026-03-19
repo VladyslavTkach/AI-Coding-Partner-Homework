@@ -1,0 +1,32 @@
+{
+  "transaction": {
+    "transaction_id": "TXN006",
+    "timestamp": "2026-03-16T10:05:00Z",
+    "source_account": "ACC-1006",
+    "destination_account": "ACC-7700",
+    "amount": "200.00",
+    "currency": "XYZ",
+    "transaction_type": "transfer",
+    "description": "Test payment",
+    "metadata": {
+      "channel": "online",
+      "country": "US"
+    }
+  },
+  "status": "declined",
+  "agent_log": [
+    {
+      "timestamp": "2026-03-19T17:21:49.848Z",
+      "agentName": "TransactionValidator",
+      "transactionId": "TXN006",
+      "outcome": "rejected: INVALID_CURRENCY"
+    },
+    {
+      "timestamp": "2026-03-19T17:21:49.848Z",
+      "agentName": "SettlementProcessor",
+      "transactionId": "TXN006",
+      "outcome": "declined: INVALID_CURRENCY"
+    }
+  ],
+  "reason": "INVALID_CURRENCY"
+}

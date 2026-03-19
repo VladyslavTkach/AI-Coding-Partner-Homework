@@ -1,0 +1,39 @@
+{
+  "transaction": {
+    "transaction_id": "TXN003",
+    "timestamp": "2026-03-16T09:30:00Z",
+    "source_account": "ACC-1003",
+    "destination_account": "ACC-9999",
+    "amount": "9999.99",
+    "currency": "USD",
+    "transaction_type": "transfer",
+    "description": "Consulting payment",
+    "metadata": {
+      "channel": "online",
+      "country": "US"
+    }
+  },
+  "status": "settled",
+  "agent_log": [
+    {
+      "timestamp": "2026-03-19T17:21:49.847Z",
+      "agentName": "TransactionValidator",
+      "transactionId": "TXN003",
+      "outcome": "validated"
+    },
+    {
+      "timestamp": "2026-03-19T17:21:49.847Z",
+      "agentName": "FraudDetector",
+      "transactionId": "TXN003",
+      "outcome": "scored: LOW (1)"
+    },
+    {
+      "timestamp": "2026-03-19T17:21:49.847Z",
+      "agentName": "SettlementProcessor",
+      "transactionId": "TXN003",
+      "outcome": "settled"
+    }
+  ],
+  "fraud_risk_score": 1,
+  "fraud_risk": "LOW"
+}
