@@ -16,19 +16,19 @@
   "status": "settled",
   "agent_log": [
     {
-      "timestamp": "2026-03-19T17:21:49.849Z",
+      "timestamp": "2026-03-20T11:37:10.601Z",
       "agentName": "TransactionValidator",
       "transactionId": "TXN008",
       "outcome": "validated"
     },
     {
-      "timestamp": "2026-03-19T17:21:49.849Z",
+      "timestamp": "2026-03-20T11:37:10.601Z",
       "agentName": "FraudDetector",
       "transactionId": "TXN008",
       "outcome": "scored: LOW (1)"
     },
     {
-      "timestamp": "2026-03-19T17:21:49.849Z",
+      "timestamp": "2026-03-20T11:37:10.601Z",
       "agentName": "SettlementProcessor",
       "transactionId": "TXN008",
       "outcome": "settled"
