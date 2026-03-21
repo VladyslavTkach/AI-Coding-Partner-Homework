@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lorem-ipsum": {
+      "command": "/home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-5/custom-mcp-server/.venv/bin/python",
+      "args": ["/home/vtkach/Projects/Studying/ai-training/AI-Coding-Partner-Homework/homework-5/custom-mcp-server/server.py"]
+    }
+  }
+}
