@@ -1,0 +1,38 @@
+{
+  "name": "ai-banking-pipeline",
+  "version": "1.0.0",
+  "description": "AI-Powered Multi-Agent Banking Pipeline",
+  "main": "dist/integrator.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/integrator.js",
+    "server": "node dist/server.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage --coverageReporters=text --coverageReporters=lcov"
+  },
+  "dependencies": {
+    "big.js": "^6.2.2",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.2.2",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.14",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": ["**/tests/**/*.test.ts"],
+    "coverageThreshold": {
+      "global": {
+        "lines": 80
+      }
+    }
+  }
+}

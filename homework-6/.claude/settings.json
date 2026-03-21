@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/check-coverage.sh",
+            "statusMessage": "Checking test coverage before push..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__context7__query-docs|mcp__context7__resolve-library-id",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '\"## Context7 \" + (.tool_name | ltrimstr(\"mcp__context7__\")) + \"\\n- **Time:** \" + (now | strftime(\"%Y-%m-%dT%H:%M:%SZ\")) + \"\\n- **Input:** \" + (.tool_input | tostring) + \"\\n\"' >> ${CLAUDE_PROJECT_DIR}/research-notes.md 2>/dev/null || true",
+            "statusMessage": "Logging context7 query..."
+          }
+        ]
+      }
+    ]
+  }
+}

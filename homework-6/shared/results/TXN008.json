@@ -1,0 +1,39 @@
+{
+  "transaction": {
+    "transaction_id": "TXN008",
+    "timestamp": "2026-03-16T10:15:00Z",
+    "source_account": "ACC-1008",
+    "destination_account": "ACC-9900",
+    "amount": "3200.00",
+    "currency": "USD",
+    "transaction_type": "transfer",
+    "description": "Salary advance",
+    "metadata": {
+      "channel": "mobile",
+      "country": "US"
+    }
+  },
+  "status": "settled",
+  "agent_log": [
+    {
+      "timestamp": "2026-03-20T11:37:10.601Z",
+      "agentName": "TransactionValidator",
+      "transactionId": "TXN008",
+      "outcome": "validated"
+    },
+    {
+      "timestamp": "2026-03-20T11:37:10.601Z",
+      "agentName": "FraudDetector",
+      "transactionId": "TXN008",
+      "outcome": "scored: LOW (1)"
+    },
+    {
+      "timestamp": "2026-03-20T11:37:10.601Z",
+      "agentName": "SettlementProcessor",
+      "transactionId": "TXN008",
+      "outcome": "settled"
+    }
+  ],
+  "fraud_risk_score": 1,
+  "fraud_risk": "LOW"
+}
