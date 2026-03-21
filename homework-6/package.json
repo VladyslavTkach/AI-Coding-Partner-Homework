@@ -8,7 +8,7 @@
     "start": "node dist/integrator.js",
     "server": "node dist/server.js",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage --coverageReporters=text --coverageReporters=lcov"
   },
   "dependencies": {
     "big.js": "^6.2.2",
