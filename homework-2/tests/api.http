@@ -1,0 +1,449 @@
+### Health Check
+GET http://localhost:3000/health
+
+###############################################
+# CRUD Operations - Using Sample Data
+###############################################
+
+### Create ticket - Account Access (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST001",
+  "customer_email": "john.doe@example.com",
+  "customer_name": "John Doe",
+  "subject": "Cannot login to my account",
+  "description": "I have been trying to login but keep getting an error message saying invalid credentials. I have tried resetting my password multiple times.",
+  "category": "account_access",
+  "priority": "high",
+  "tags": ["login", "urgent"],
+  "metadata": {
+    "source": "web_form",
+    "browser": "Chrome 120",
+    "device_type": "desktop"
+  }
+}
+
+### Create ticket - Billing Question (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST002",
+  "customer_email": "jane.smith@example.com",
+  "customer_name": "Jane Smith",
+  "subject": "Question about my invoice",
+  "description": "I received my invoice and noticed a charge I don't recognize. Can you please explain what this charge is for?",
+  "category": "billing_question",
+  "priority": "medium",
+  "tags": ["billing", "invoice"],
+  "metadata": {
+    "source": "email"
+  }
+}
+
+### Create ticket - Technical Issue (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST003",
+  "customer_email": "bob.wilson@example.com",
+  "customer_name": "Bob Wilson",
+  "subject": "App crashes on startup",
+  "description": "The mobile app crashes immediately after I open it. I am using an iPhone 14 with iOS 17. This started after the latest update.",
+  "category": "technical_issue",
+  "priority": "high",
+  "tags": ["crash", "mobile", "ios"],
+  "metadata": {
+    "source": "web_form",
+    "browser": "Safari",
+    "device_type": "mobile"
+  }
+}
+
+### Create ticket - Feature Request (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST004",
+  "customer_email": "alice.johnson@example.com",
+  "customer_name": "Alice Johnson",
+  "subject": "Feature request: Dark mode",
+  "description": "Would love to have a dark mode option in the app. It would be much easier on the eyes, especially when using the app at night.",
+  "category": "feature_request",
+  "priority": "low",
+  "tags": ["feature", "ui", "dark-mode"],
+  "metadata": {
+    "source": "web_form",
+    "browser": "Firefox",
+    "device_type": "desktop"
+  }
+}
+
+### Create ticket - URGENT Production Down (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST005",
+  "customer_email": "charlie.brown@example.com",
+  "customer_name": "Charlie Brown",
+  "subject": "URGENT: Production system down",
+  "description": "Our entire production environment is inaccessible. This is a critical emergency affecting all our operations! Need immediate assistance.",
+  "category": "technical_issue",
+  "priority": "urgent",
+  "tags": ["critical", "production", "emergency"],
+  "metadata": {
+    "source": "phone"
+  }
+}
+
+### Create ticket - Bug Report (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST008",
+  "customer_email": "fiona.green@example.com",
+  "customer_name": "Fiona Green",
+  "subject": "Bug: Submit button not clickable",
+  "description": "The submit button on the checkout page is not responding to clicks. I can see the button but nothing happens when I click it.",
+  "category": "bug_report",
+  "priority": "high",
+  "tags": ["bug", "checkout", "button"],
+  "metadata": {
+    "source": "web_form",
+    "browser": "Chrome 120",
+    "device_type": "desktop"
+  }
+}
+
+### Create ticket - Security Vulnerability (from sample_tickets.json)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST019",
+  "customer_email": "quinn.silver@example.com",
+  "customer_name": "Quinn Silver",
+  "subject": "Security vulnerability report",
+  "description": "I found a potential XSS vulnerability on the contact form page. The input field does not properly sanitize user input.",
+  "category": "bug_report",
+  "priority": "urgent",
+  "tags": ["security", "xss", "vulnerability"],
+  "metadata": {
+    "source": "api",
+    "device_type": "desktop"
+  }
+}
+
+### Create ticket with validation error (invalid email)
+POST http://localhost:3000/tickets
+Content-Type: application/json
+
+{
+  "customer_id": "CUST999",
+  "customer_email": "invalid-email",
+  "customer_name": "Invalid User",
+  "subject": "Test validation",
+  "description": "Short",
+  "category": "other",
+  "priority": "low"
+}
+
+###############################################
+# List and Filter Operations
+###############################################
+
+### List all tickets
+GET http://localhost:3000/tickets
+
+### List tickets filtered by category - Account Access
+GET http://localhost:3000/tickets?category=account_access
+
+### List tickets filtered by category - Billing
+GET http://localhost:3000/tickets?category=billing_question
+
+### List tickets filtered by category - Technical Issue
+GET http://localhost:3000/tickets?category=technical_issue
+
+### List tickets filtered by priority - Urgent
+GET http://localhost:3000/tickets?priority=urgent
+
+### List tickets filtered by priority - High
+GET http://localhost:3000/tickets?priority=high
+
+### List tickets filtered by status - New
+GET http://localhost:3000/tickets?status=new
+
+### List tickets filtered by status - In Progress
+GET http://localhost:3000/tickets?status=in_progress
+
+### List tickets with multiple filters (billing + medium priority)
+GET http://localhost:3000/tickets?category=billing_question&priority=medium
+
+### List tickets with multiple filters (technical + high priority)
+GET http://localhost:3000/tickets?category=technical_issue&priority=high
+
+### List tickets by customer_id
+GET http://localhost:3000/tickets?customer_id=CUST001
+
+### List tickets by assigned_to
+GET http://localhost:3000/tickets?assigned_to=agent-1
+
+###############################################
+# Get, Update, Delete Operations
+###############################################
+
+### Get ticket by ID (replace {{ticket_id}} with actual ID from create response)
+GET http://localhost:3000/tickets/{{ticket_id}}
+
+### Update ticket - Assign to agent
+PUT http://localhost:3000/tickets/{{ticket_id}}
+Content-Type: application/json
+
+{
+  "status": "in_progress",
+  "assigned_to": "agent-1"
+}
+
+### Update ticket - Mark as resolved
+PUT http://localhost:3000/tickets/{{ticket_id}}
+Content-Type: application/json
+
+{
+  "status": "resolved"
+}
+
+### Update ticket - Change priority
+PUT http://localhost:3000/tickets/{{ticket_id}}
+Content-Type: application/json
+
+{
+  "priority": "urgent"
+}
+
+### Update ticket - Add notes to description
+PUT http://localhost:3000/tickets/{{ticket_id}}
+Content-Type: application/json
+
+{
+  "description": "Updated description with additional information from the customer."
+}
+
+### Delete ticket (replace {{ticket_id}} with actual ID)
+DELETE http://localhost:3000/tickets/{{ticket_id}}
+
+### Get non-existent ticket (404 error)
+GET http://localhost:3000/tickets/non-existent-id
+
+###############################################
+# Bulk Import Operations - Using Sample Files
+###############################################
+
+### Import from sample_tickets.json (first 5 tickets)
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="sample_tickets.json"
+Content-Type: application/json
+
+[
+  {
+    "customer_id": "IMPORT001",
+    "customer_email": "helen.white@example.com",
+    "customer_name": "Helen White",
+    "subject": "Two-factor authentication issues",
+    "description": "I enabled 2FA on my account but now I cannot receive the verification codes on my phone. SMS messages are not arriving.",
+    "category": "account_access",
+    "priority": "high",
+    "tags": ["2fa", "security", "sms"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Safari",
+      "device_type": "mobile"
+    }
+  },
+  {
+    "customer_id": "IMPORT002",
+    "customer_email": "ivan.black@example.com",
+    "customer_name": "Ivan Black",
+    "subject": "Slow page load times",
+    "description": "The dashboard takes over 30 seconds to load. This performance issue started happening yesterday and makes the app unusable.",
+    "category": "technical_issue",
+    "priority": "medium",
+    "tags": ["performance", "slow", "dashboard"],
+    "metadata": {
+      "source": "web_form",
+      "browser": "Firefox",
+      "device_type": "desktop"
+    }
+  },
+  {
+    "customer_id": "IMPORT003",
+    "customer_email": "julia.red@example.com",
+    "customer_name": "Julia Red",
+    "subject": "Billing cycle change request",
+    "description": "I would like to change my billing cycle from monthly to annual subscription. Please advise on the process.",
+    "category": "billing_question",
+    "priority": "low",
+    "tags": ["billing", "subscription", "annual"],
+    "metadata": {
+      "source": "email"
+    }
+  }
+]
+--boundary--
+
+### Import from CSV format (sample data)
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="tickets.csv"
+Content-Type: text/csv
+
+customer_id,customer_email,customer_name,subject,description,category,priority,tags,source,browser,device_type
+CSVIMPORT001,kevin.blue@example.com,Kevin Blue,Data export not working,When I try to export my data to CSV format the download never completes. The progress bar gets stuck at 50%.,bug_report,medium,"export,csv",web_form,Chrome 120,desktop
+CSVIMPORT002,laura.gray@example.com,Laura Gray,Mobile app biometric login request,Please add biometric login support (fingerprint/face ID) for the mobile app. It would make logging in much faster.,feature_request,low,"mobile,biometric",api,,mobile
+CSVIMPORT003,michael.orange@example.com,Michael Orange,Account locked - need urgent help,My account got locked after entering the wrong password a few times. I need to unlock it urgently for work.,account_access,urgent,"locked,urgent",phone,,
+--boundary--
+
+### Import from XML format (sample data)
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="tickets.xml"
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>XMLIMPORT001</customer_id>
+    <customer_email>nancy.purple@example.com</customer_email>
+    <customer_name>Nancy Purple</customer_name>
+    <subject>Invoice discrepancy found</subject>
+    <description>The amount on my invoice does not match the quoted price I was given by your sales team. There is a $50 difference.</description>
+    <category>billing_question</category>
+    <priority>high</priority>
+    <tags><tag>invoice</tag><tag>pricing</tag></tags>
+    <metadata><source>email</source></metadata>
+  </ticket>
+  <ticket>
+    <customer_id>XMLIMPORT002</customer_id>
+    <customer_email>oliver.yellow@example.com</customer_email>
+    <customer_name>Oliver Yellow</customer_name>
+    <subject>Push notifications not working</subject>
+    <description>Push notifications are not working on my Android device since the last app update. I have checked all settings.</description>
+    <category>technical_issue</category>
+    <priority>medium</priority>
+    <tags><tag>notifications</tag><tag>android</tag></tags>
+    <metadata><source>web_form</source><browser>Chrome</browser><device_type>mobile</device_type></metadata>
+  </ticket>
+</tickets>
+--boundary--
+
+### Import with mixed valid/invalid records (error handling test)
+POST http://localhost:3000/tickets/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="mixed.csv"
+Content-Type: text/csv
+
+customer_id,customer_email,customer_name,subject,description,category,priority
+VALID001,valid@example.com,Valid User,Valid ticket subject,This is a valid ticket description with enough characters to pass validation,technical_issue,medium
+INVALID001,bad-email,Invalid User,Bad,Short,other,low
+VALID002,another@example.com,Another Valid,Another valid subject,This is another valid ticket with proper description length for validation,billing_question,high
+--boundary--
+
+###############################################
+# Auto-Classification Endpoints
+###############################################
+
+### Create ticket with auto-classification - Login/Account keywords
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CLASSIFY001",
+  "customer_email": "classify1@example.com",
+  "customer_name": "Classify User 1",
+  "subject": "Cannot login to my account - password reset failing",
+  "description": "I have been trying to login but keep getting an error. My password reset email is not arriving either. This is blocking my access completely.",
+  "category": "other",
+  "priority": "medium"
+}
+
+### Create ticket with auto-classification - URGENT/Critical keywords
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CLASSIFY002",
+  "customer_email": "classify2@example.com",
+  "customer_name": "Classify User 2",
+  "subject": "CRITICAL: Production system down - EMERGENCY",
+  "description": "Our entire production environment is inaccessible! This is an urgent critical emergency affecting all operations. Need immediate help ASAP!",
+  "category": "other",
+  "priority": "low"
+}
+
+### Create ticket with auto-classification - Billing/Invoice keywords
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CLASSIFY003",
+  "customer_email": "classify3@example.com",
+  "customer_name": "Classify User 3",
+  "subject": "Question about my invoice and payment",
+  "description": "I received my invoice but the charges and billing don't match what I expected. Can you explain and help me understand the refund policy?",
+  "category": "other",
+  "priority": "medium"
+}
+
+### Create ticket with auto-classification - Feature/Suggestion keywords (low priority)
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CLASSIFY004",
+  "customer_email": "classify4@example.com",
+  "customer_name": "Classify User 4",
+  "subject": "Suggestion: Would be nice to have dark mode",
+  "description": "This is just a minor suggestion for the future. When you have time, it would be nice to have a dark mode feature. No rush on this, just an enhancement idea.",
+  "category": "other",
+  "priority": "high"
+}
+
+### Create ticket with auto-classification - Bug/Error keywords
+POST http://localhost:3000/tickets?auto_classify=true
+Content-Type: application/json
+
+{
+  "customer_id": "CLASSIFY005",
+  "customer_email": "classify5@example.com",
+  "customer_name": "Classify User 5",
+  "subject": "Bug: Application crashes when clicking submit",
+  "description": "I can reproduce this bug consistently. The application crashes with an error message every time I click the submit button on the form.",
+  "category": "other",
+  "priority": "medium"
+}
+
+### Auto-classify an existing ticket (replace {{ticket_id}} with actual ID)
+POST http://localhost:3000/tickets/{{ticket_id}}/auto-classify
+
+### Get classification history for a ticket (replace {{ticket_id}} with actual ID)
+GET http://localhost:3000/tickets/{{ticket_id}}/classification-history
+
+### Auto-classify non-existent ticket (404 error)
+POST http://localhost:3000/tickets/non-existent-id/auto-classify
+
+### Get classification history for non-existent ticket (404 error)
+GET http://localhost:3000/tickets/non-existent-id/classification-history

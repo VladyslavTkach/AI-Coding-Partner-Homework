@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_id>CUST001</customer_id>
+    <customer_email>john@example.com</customer_email>
+    <customer_name>John Doe</customer_name>
+    <subject>Cannot access my account</subject>
+    <description>I've been trying to login but keep getting an error message</description>
+    <category>account_access</category>
+    <priority>high</priority>
+    <status>new</status>
+    <tags>
+      <tag>login</tag>
+      <tag>urgent</tag>
+    </tags>
+    <metadata>
+      <source>web_form</source>
+      <browser>Chrome 120</browser>
+      <device_type>desktop</device_type>
+    </metadata>
+  </ticket>
+  <ticket>
+    <customer_id>CUST002</customer_id>
+    <customer_email>jane@example.com</customer_email>
+    <customer_name>Jane Smith</customer_name>
+    <subject>Billing question about invoice</subject>
+    <description>I have a question about my last invoice charges</description>
+    <category>billing_question</category>
+    <priority>medium</priority>
+    <status>new</status>
+    <metadata>
+      <source>email</source>
+    </metadata>
+  </ticket>
+</tickets>
